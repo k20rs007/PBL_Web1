@@ -1,7 +1,7 @@
 <?php
   require_once('db_inc.php'); //データベースが必要なので読み込ませる
-  $u = $_POST['uid'] ;  
-  $p = $_POST['pass'];  
+  $u = $_POST['user_id'] ;  
+  $p = $_POST['pass'];
   $sql = "SELECT * FROM t_user WHERE user_id= '{$u}'  AND password='{$p}'";
   $rs = $conn->query($sql);
   if (!$rs) die('エラー: ' . $conn->error);

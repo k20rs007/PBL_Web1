@@ -21,11 +21,11 @@ if (isset($_GET['user_id'])){//既存アカウントを編集する場合
   }
 }
 ?>
-<h2>アカウント登録・編集</h2>
+<!--<h2>アカウント登録・編集</h2>-->
 <form action="?do=usr_save" method="post">
 <input type="hidden" name="act" value="<?php echo $act; ?>">
 <table>
-<tr><td>ユーザID：</td><td>
+<!--<tr><td>ユーザID：</td><td>
 <?php
 if ($act=='insert'){
   echo '<input type="text" name="user_id">';//テキストボックス
@@ -35,26 +35,38 @@ if ($act=='insert'){
 }
 ?>
 </td></tr>
-<tr><td>氏　名：</td><td>
+-->
+<h2>アカウント情報編集</h2>
+<tr><td>現在のパスワード</td><td>
+  <input type="text" name="pass">
+</td></tr>
+<tr><td>アカウント名変更</td><td>
   <input type="text" name="user_name"  value="<?php echo $user_name;?>">
 </td></tr>
-<tr><td>パスワード</td><td>
+<tr><td>新しいパスワード</td><td>
   <input type="password" name="pass1">
 </td></tr>
-<tr><td>（再入力）</td><td>
+<tr><td>新しいパスワード（再入力）</td><td>
   <input type="password" name="pass2">
 </td></tr>
-<tr><td>ユーザ種別</td><td>
 <?php
-  foreach ($codes as $key => $value){
-    if ($key==$usertype_id){
-      echo '<input type="radio" name="usertype_id" value="' . $key .'" checked>' . $value;
-    }else{
-      echo '<input type="radio" name="usertype_id" value="' . $key .'">' . $value;
+  if (isset($_SESSION['usertype_id'])){
+    if($_SESSION['usertype_id']==='9') {
+      echo '<tr><td>ユーザ種別</td><td>';
+      foreach ($codes as $key => $value){
+        if ($key==$usertype_id){
+          echo '<input type="radio" name="usertype_id" value="' . $key .'" checked>' . $value;
+        }else{
+          echo '<input type="radio" name="usertype_id" value="' . $key .'">' . $value;
+        }
+      }
+      echo '</td></tr>';
     }
   }
 ?>  
-</td></tr>
+
 </table>
-<input type="submit" value="登録"><input type="reset" value="取消">
+<!--<input type="submit" value="登録">-->
+<input type="submit" value="決定">
+<!--<input type="reset" value="取消">-->
 </form>
