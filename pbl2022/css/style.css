@@ -99,12 +99,19 @@ rst_detail====================================================
 rst_list====================================================
 */
 
-.rst_list {
+.rst_grid {
+  margin: 0 auto;
+  width:80%;
   padding-top: 5rem;
-  display: block;
-  margin-right: auto;
-  width:23em;
+  display: grid;
+  gap:26px;
+  grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
 }
+
+.item img {
+  width:320px;
+}
+
 
 /*
 rst_favor====================================================
