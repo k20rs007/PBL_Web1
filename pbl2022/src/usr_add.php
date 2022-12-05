@@ -22,7 +22,7 @@ if (isset($_GET['user_id'])){//既存アカウントを編集する場合
 }
 ?>
 <!--<h2>アカウント登録・編集</h2>-->
-<form action="?do=usr_add" method="post">
+<form action="?do=usr_save" method="post">
 <input type="hidden" name="act" value="<?php echo $act; ?>">
 <table>
 <!--<tr><td>ユーザID：</td><td>
@@ -68,12 +68,22 @@ if ($act=='insert'){
 </table>
 <!--<input type="submit" value="登録">-->
 
-<input type="submit" value="決定">
+<input type="submit" value="決定" onclick="">
 <!--<input type="reset" value="取消">-->
 </form>
 <?php
   $pass = filter_input(INPUT_POST, 'pass');
-  //$user_name = filter_input(INPUT_POST, 'user_name');
+  $user_name = filter_input(INPUT_POST, 'user_name');
   //$pass_f = filter_input(INPUT_POST, 'pass_f');
   //$pass_s = filter_input(INPUT_POST, 'pass_s');
+  
+  if($pass===$_SESSION['password']) {
+    //パスワード
+    // 既存アカウントの情報を検索するSQL文
+    $sql = "UPDATE t_user SET user_name='".$user_name."' WHERE user_id = '".$user_id."'";
+    // データベースへ問合せのSQL($sql)を実行する・・・
+    $rs = $conn->query($sql);;
+    
+    if (!$rs) die('エラー: ' . $conn->error);
+  }
 ?>

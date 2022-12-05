@@ -9,6 +9,7 @@
   if ($row){ //Login succeeded
     $_SESSION['user_id']   = $row['user_id'];
     $_SESSION['user_name'] = $row['user_name'];
+    $_SESSION['password'] = $row['password'];
     $_SESSION['usertype_id'] = $row['usertype_id'];
     header('Location:index.php');   
   }else{

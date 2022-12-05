@@ -1,17 +1,17 @@
+<div class=usr_save>
 <?php
 require_once('db_inc.php');
 if (isset($_POST['act'])){
   $act = $_POST['act'];
-  if ($_POST['pass1']===$_POST['pass2']){
-    $user_id = $_POST['user_id'];
-    $usertype_id = $_POST['usertype_id'];
+  if ($_POST['pass_f']===$_POST['pass_s']){
+    $user_id = $_SESSION['user_id'];
+    //$usertype_id = $_POST['usertype_id'];
     $user_name = $_POST['user_name'];
-    $upass = $_POST['pass1'];
-    $usertype_id = $_POST['usertype_id'];
+    $upass = $_POST['pass_f'];
     //新規作成する場合
-    $sql ="INSERT INTO t_user(user_id,user_name,password,usertype_id) VALUES ('{$user_id}','{$user_name}','{$upass}','{$usertype_id}')";
+    $sql ="INSERT INTO t_user(user_id,user_name,password,usertype_id) VALUES ('{$user_id}','{$user_name}','{$upass}')";
     if ($act=='update'){  //編集する場合
-      $sql = "UPDATE t_user SET user_name='{$user_name}',password='{$upass}',usertype_id='{$usertype_id}'' WHERE user_id='{$user_id}'";
+      $sql = "UPDATE t_user SET user_name='{$user_name}',password='{$upass}' WHERE user_id='{$user_id}'";
     }
     //echo $sql;
     $conn->query($sql);
@@ -21,3 +21,4 @@ if (isset($_POST['act'])){
   }
 }
 ?>
+</div>
