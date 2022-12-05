@@ -50,8 +50,7 @@
     
     
   }else{
-    echo '<ul class="main-nav">';
-    echo  '<li><a href="?do=sys_login">ログイン</a></li></ul>' ;
+    echo  '<a href="?do=sys_login">ログイン</a>' ;
   }
   ?>
 </header>
