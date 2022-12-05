@@ -22,7 +22,7 @@ if (isset($_GET['user_id'])){//既存アカウントを編集する場合
 }
 ?>
 <!--<h2>アカウント登録・編集</h2>-->
-<form action="?do=usr_save" method="post">
+<form action="?do=usr_add" method="post">
 <input type="hidden" name="act" value="<?php echo $act; ?>">
 <table>
 <!--<tr><td>ユーザID：</td><td>
@@ -38,16 +38,16 @@ if ($act=='insert'){
 -->
 <h2>アカウント情報編集</h2>
 <tr><td>現在のパスワード</td><td>
-  <input type="text" name="pass">
+  <input type="password" name="pass">
 </td></tr>
 <tr><td>アカウント名変更</td><td>
   <input type="text" name="user_name"  value="<?php echo $user_name;?>">
 </td></tr>
 <tr><td>新しいパスワード</td><td>
-  <input type="password" name="pass1">
+  <input type="password" name="pass_f">
 </td></tr>
 <tr><td>新しいパスワード（再入力）</td><td>
-  <input type="password" name="pass2">
+  <input type="password" name="pass_s">
 </td></tr>
 <?php
   if (isset($_SESSION['usertype_id'])){
@@ -67,6 +67,13 @@ if ($act=='insert'){
 
 </table>
 <!--<input type="submit" value="登録">-->
+
 <input type="submit" value="決定">
 <!--<input type="reset" value="取消">-->
 </form>
+<?php
+  $pass = filter_input(INPUT_POST, 'pass');
+  //$user_name = filter_input(INPUT_POST, 'user_name');
+  //$pass_f = filter_input(INPUT_POST, 'pass_f');
+  //$pass_s = filter_input(INPUT_POST, 'pass_s');
+?>
