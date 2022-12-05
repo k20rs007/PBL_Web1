@@ -34,21 +34,6 @@ header {
 
 
 
-.main-nav {
-  display: flex;
-}
-
-.main-nav li {
-  text-align: center;
-  list-style: none;
-}
-
-.main-nav a {
-  display: block;
-  padding: .5rem;
-  width: auto;
-  font-size:1.25rem;
-}
 
 
 /*
