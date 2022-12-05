@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('src/pg_header.php');
-$action = 'pb_home';
+$action = 'rst_list';
 if (isset($_GET['do'])) {
   $action = $_GET['do'];
 }
