@@ -13,7 +13,9 @@
     <h4>店舗名：</h4><?=$rst_name?></h4>
     <h4>店舗詳細：</h4><?=$rst_info?></h4>
     <h4>店舗住所：</h4><?=$rst_address?></h4>
-    <iframe width="80%" height="500pt" frameborder="0" scrolling="no"
-    src="https://maps.google.com/maps?output=embed&hl=ja&q=<?=$rst_address?>">
-    </iframe>
+    <?php
+    echo '<iframe width="80%" height="500pt" frameborder="0" scrolling="no"';
+    echo "src='https://maps.google.com/maps?output=embed&hl=ja&q=<?=$rst_address?>'>";
+    echo '</iframe>';
+    ?>
 </div>
