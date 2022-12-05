@@ -14,10 +14,12 @@
     <h4>店舗詳細：</h4><?=$rst_info?></h4>
     <h4>店舗住所：</h4><?=$rst_address?></h4>
     <?php
-    if($rst_address != null){
+    if($rst_address != null)
+    {
         echo '<iframe width="80%" height="500pt" frameborder="0" scrolling="no"';
         echo "src='https://maps.google.com/maps?output=embed&hl=ja&q=<?=$rst_address?>'>";
         echo '</iframe>';
     }
+    echo 'コメント';
     ?>
 </div>
