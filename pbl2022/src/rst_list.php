@@ -2,7 +2,7 @@
   <h2>店舗一覧</h2>
   <?php
   require_once('db_inc.php');
-  define('MAX_ROWS', 2); //MAX_ROWS: 1ページに表示する最大行数
+  define('MAX_ROWS', 9); //MAX_ROWS: 1ページに表示する最大行数
   $sql = "SELECT *, (SELECT COUNT(*) FROM t_review WHERE t_rstinfo.rst_id = t_review.rst_id) as count,
    (SELECT ROUND(AVG(eval_point),1) FROM t_review WHERE t_rstinfo.rst_id = t_review.rst_id) as ave FROM t_rstinfo ORDER BY rst_id";
   $rs = $conn->query($sql);

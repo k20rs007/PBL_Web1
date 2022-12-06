@@ -2,5 +2,5 @@
  session_start();
  unset($_SESSION);
  session_destroy();
- header('Location:?do=pb_home');    
+ header('Location:?do=rst_list');    
 ?>
