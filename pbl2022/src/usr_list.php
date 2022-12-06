@@ -32,7 +32,7 @@ while ($row) {
   echo '<td><a href="?do=usr_add&user_id='.$user_id.'">編集</a></td>'; 
 //  echo '<td><a href="?do=usr_delete&user_id='.$user_id.'">削除</a></td>';  
   echo '<td><form method="post" action="?do=usr_delete&user_id='.$user_id.'" onsubmit="return submitChk()">';
-  echo '<input type="submit" value="'.$user_id.'" name="test" onclick="return confirm_test()" />';
+  echo '<input type="submit" value="削除" name="test" onclick="return confirm_test()" />';
   echo '</form></ td>';
   echo '</tr>';
  $row= $rs->fetch_assoc();//次の行へ
