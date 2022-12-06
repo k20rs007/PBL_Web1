@@ -3,8 +3,14 @@
   <?php
   require_once('db_inc.php');
   define('MAX_ROWS', 9); //MAX_ROWS: 1ページに表示する最大行数
-  $sql = "SELECT *, (SELECT COUNT(*) FROM t_review WHERE t_rstinfo.rst_id = t_review.rst_id) as count,
+  if(!isset($_POST['sort'])){
+    $sql = "SELECT *, (SELECT COUNT(*) FROM t_review WHERE t_rstinfo.rst_id = t_review.rst_id) as count,
    (SELECT ROUND(AVG(eval_point),1) FROM t_review WHERE t_rstinfo.rst_id = t_review.rst_id) as ave FROM t_rstinfo ORDER BY rst_id";
+  }else{
+    $sql = "SELECT *, (SELECT COUNT(*) FROM t_review WHERE t_rstinfo.rst_id = t_review.rst_id) as count,
+   (SELECT ROUND(AVG(eval_point),1) FROM t_review WHERE t_rstinfo.rst_id = t_review.rst_id) as ave FROM t_rstinfo ORDER BY ".$_POST['sort'];
+  }
+  
   $rs = $conn->query($sql);
   $num_rows = mysqli_num_rows($rs);
   $max_page = ceil($num_rows / MAX_ROWS);
@@ -25,7 +31,7 @@
   //DBからデータを検索し、while文で複数の店舗の情報を一つずつ受けとり、画像とどもに表示する
   //$row = $rs->fetch_assoc();
   //指定ページの結果を取り出す
-  
+
   $sql = sprintf("%s LIMIT %d OFFSET %d", $sql, MAX_ROWS, $offset);
   $rs = $conn->query($sql);
   $row = $rs->fetch_assoc();
@@ -62,6 +68,130 @@
   echo '</div>';
   ?>
 </div>
+<table>
+  <form action="?do=rst_list" method="post">
+  <tr>
+    <td>
+      <input type="radio" name="sort" value="(BUDGET_MAX + BUDGET_MIN)/2 DESC">平均金額が高い順
+    </td>
+    <td>
+      <input type="radio" name="sort" value="(BUDGET_MAX + BUDGET_MIN)/2">平均金額が低い順
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <input type="radio" name="sort" value="count DESC">評価数が多い順
+    </td>
+    <td>
+      <input type="radio" name="sort" value="count">評価数が少ない順
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <input type="radio" name="sort" value="ave DESC">評価平均が高い順
+    </td>
+    <td>
+      <input type="radio" name="sort" value="ave DESC">評価平均が低い順
+    </td>
+  </tr>
+  <tr>
+    <input type="submit" value="並び替え">
+  </tr>
+  </form>
+  <tr>
+    <td>値段目安</td>
+    <td>
+      <select name="example2" size="1">
+        <option value="">下限額を入力</option>
+        <option>0</option>
+        <option>500</option>
+        <option>1000</option>
+        <option>1500</option>
+        <option>2000</option>
+        <option>2500</option>
+        <option>3000</option>
+        <option>3500</option>
+        <option>4000</option>
+        <option>4500</option>
+        <option>5000</option>
+      </select>
+    </td>
+    <td>~</td>
+    <td>
+      <select name="example2" size="1">
+        <option value="">上限額を入力</option>
+        <option>500</option>
+        <option>1000</option>
+        <option>1500</option>
+        <option>2000</option>
+        <option>2500</option>
+        <option>3000</option>
+        <option>3500</option>
+        <option>4000</option>
+        <option>4500</option>
+        <option>5000</option>
+        <option>5000以上</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td>定休日(休みを選択してください。)</td>
+    <?php
+    $day = [
+      '月',
+      '火',
+      '水',
+      '木',
+      '金',
+      '土',
+      '日'
+    ];
+    for ($num = 0; $num <= 6; $num++) {
+      echo '<td><input type="checkbox" id="day_' . $num . '" name="' . $day[$num] . '"><label for="' . $day[$num] . '">' . $day[$num] . '</label></td>';
+    }
+    ?>
+  </tr>
+  <tr>
+    <td>ジャンル</td>
+    <?php
+    $genre = [
+      '和食',
+      '洋食',
+      'アジア',
+      'カレー',
+      '焼肉',
+      '鍋',
+      'レストラン',
+      '麺類',
+      'カフェ',
+      'パン',
+      'お酒',
+      'その他'
+    ];
+    for ($num = 0; $num <= 11; $num++) {
+      echo '<td><input type="checkbox" id="genre_' . $num . '" name="' . $genre[$num] . '"><label for="' . $genre[$num] . '">' . $genre[$num] . '</label></td>';
+    }
+    ?>
+  </tr>
+</table>
+
+<script>
+  function sql_code(val){
+    //ここでvalをが入るSQLを記入する。
+    //console.log(val);
+    var value = val;
+    document.cookie = 'value =; max-age=0';
+    document.cookie = 'value ='+value;
+    <?php
+    if(isset($_COOKIE['value'])){
+      $val = $_COOKIE['value'];
+      // print_r($val);
+      echo "console.log('".$val."');";
+    } 
+    ?>
+    
+  }
+</script>
 
 <!--<h3>画像付きアカウント一覧(ページネーション)</h3>-->
 <?php
