@@ -176,12 +176,12 @@
     echo '<a href="?do=rst_detail&rst_id=' . $row['rst_id'] . '">';
     echo '<img src="img/rst1_photo1.jpg">';
     echo '</a>';
-    if ($row['TAKEOUT'] == 1) {
+    if ($row['takeout'] == 1) {
       echo '<br>', 'テイクアウト：可能';
     } else {
       echo '<br>', 'テイクアウト：不可';
     }
-    if ($row['DELIVERY'] == 1) {
+    if ($row['delivery'] == 1) {
       echo '　', 'デリバリー：可能';
     } else {
       echo '　', 'デリバリー：不可';
@@ -191,7 +191,7 @@
     echo '<br>', '評価数：' . $row['count'];
     echo '<br>', '評価平均：' . $row['ave'];
     echo '<br>', 'ジャンル：' . $row['genre'];
-    echo '<br>', '平均予算：' . ($row['BUDGET_MAX'] + $row['BUDGET_MIN']) / 2 . '円';
+    echo '<br>', '平均予算：' . ($row['budget_max'] + $row['budget_min']) / 2 . '円';
     echo '</div>';
     $row = $rs->fetch_assoc(); //次の行へ
   }
