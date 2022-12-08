@@ -118,6 +118,13 @@ rst_list====================================================
   margin-top:5%;
 }
 
+.searchcondition {
+  margin: 0 auto;
+  width:90%;
+  display:flex;
+  justify-content: space-between;
+}
+
 
 /*
 rst_favor====================================================
