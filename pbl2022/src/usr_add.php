@@ -74,16 +74,6 @@ if ($act=='insert'){
 <?php
   $pass = filter_input(INPUT_POST, 'pass');
   $user_name = filter_input(INPUT_POST, 'user_name');
-  //$pass_f = filter_input(INPUT_POST, 'pass_f');
-  //$pass_s = filter_input(INPUT_POST, 'pass_s');
-  
-  if($pass===$_SESSION['password']) {
-    //パスワード
-    // 既存アカウントの情報を検索するSQL文
-    $sql = "UPDATE t_user SET user_name='".$user_name."' WHERE user_id = '".$user_id."'";
-    // データベースへ問合せのSQL($sql)を実行する・・・
-    $rs = $conn->query($sql);;
-    
-    if (!$rs) die('エラー: ' . $conn->error);
-  }
+  $pass_f = filter_input(INPUT_POST, 'pass_f');
+  $pass_s = filter_input(INPUT_POST, 'pass_s');
 ?>
