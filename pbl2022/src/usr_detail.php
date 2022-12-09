@@ -9,7 +9,7 @@ if (!$rs) die('エラー: ' . $conn->error);
 
 echo '<h2>アカウント情報</h2>';
 
-echo '<table border=1>';
+echo '<table border=1 cellspacing="0">';
 $row= $rs->fetch_assoc();
 if ($row) {
  echo '<tr><th>ID</th><td>' . $row['user_id'] . '</td></tr>';

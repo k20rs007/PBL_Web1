@@ -83,6 +83,12 @@ pg_mypage====================================================
   width:23em;
 }
 
+.pg_mypage td
+{
+  position: relative;
+  left:50%;
+}
+
 /*
 rst_detail====================================================
 */
@@ -148,10 +154,35 @@ rst_add====================================================
   width:23em;
 }
 
+.rst_add td
+{
+  white-space: nowrap;
+}
+
+.rst_add button
+{
+  width:100px;
+}
+
+
 /*
 usr_save====================================================
 */
 
 .usr_save {
   padding-top: 5rem;
+}
+
+/*
+usr_list====================================================
+*/
+
+.usr_list 
+{
+  padding-top: 3rem;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  width:50%;
+  text-align: center
 }

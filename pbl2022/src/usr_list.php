@@ -11,7 +11,7 @@ $sql = "SELECT * FROM t_user WHERE $where ORDER BY usertype_id, user_id";
 $rs = $conn->query($sql);
 if (!$rs) die('エラー: ' . $conn->error);
 
-echo '<table border=1>';
+echo '<table border=1 cellspacing="0">';
 // まず、ヘッド部分（項目名）を出力
 //echo '<tr><th>ユーザID</th><th>氏名</th><th>ユーザ種別</th><th colspan="2">操作</th></tr>';
 echo '<tr><th>ユーザID</th><th>氏名</th><th>アカウント名</th><th colspan="3">操作</th></tr>';
