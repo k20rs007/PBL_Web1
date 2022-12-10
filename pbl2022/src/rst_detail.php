@@ -2,6 +2,7 @@
     <h1 align="center">店舗詳細</h1>
     <?php
     require_once('db_inc.php');
+    $uid  = $_SESSION['user_id'];
     $rst_id = $_GET['rst_id'];
     $sql = "SELECT *, (SELECT COUNT(*) FROM t_review WHERE t_rstinfo.rst_id = t_review.rst_id) as count,
     (SELECT ROUND(AVG(eval_point),1) FROM t_review WHERE t_rstinfo.rst_id = t_review.rst_id) as ave 
@@ -25,27 +26,25 @@
     // $rst_photo2 = $row['rst_photo2'];//メニューの画像２
     // $rst_photo3 = $row['rst_photo3'];//メニューの画像３
     // $uer_id = $row['user_id'];//登録したユーザ
-    // $takeout = $row['takeout'];//テイクアウトの可=1/否=0
-    // $delivery = $row['delivery'];//出前の可=1/否=0
     $holiday_detail = $row['holiday_detail']; //休日の備考
     $rst_url = $row['rst_url']; //店舗のホームページ
     $delivery_url = $row['delivery_url']; //デリバリーのホームページ
     $menu_detail = $row['menu_detail']; //メニューの備考
-    // $budget_max = $row['budget_max'];//価格帯（最大）
-    // $budget_min = $row['budget_min'];//価格帯（最小）
-    // $delivery_url = $row['delivery_url'];//出前サイトのURL
-    // $japanese_f = $row['japanese_f'];//和食の可=1/否=0
-    // $western_f = $row['western_f'];//洋食の可=1/否=0
-    // $asian_f = $row['asian_f'];//アジアの可=1/否=0
-    // $curry = $row['curry'];//カレーの可=1/否=0
-    // $yakiniku = $row['yakiniku'];//焼肉の可=1/否=0
-    // $nabe = $row['nabe'];//鍋の可=1/否=0
-    // $restaurant = $row['restaurant'];//レストランの可=1/否=0
-    // $noodle = $row['noodle'];//麺類の可=1/否=0
-    // $cafe = $row['cafe'];//カフェの可=1/否=0
-    // $bread = $row['bread'];//パンの可=1/否=0
-    // $liquor = $row['liquor'];//お酒の可=1/否=0
-    // $others = $row['others'];//そのほかの可=1/否=0
+    $budget_max = $row['budget_max'];//価格帯（最大）
+    $budget_min = $row['budget_min'];//価格帯（最小)
+    $delivery_url = $row['delivery_url'];//出前サイトのURL
+    $japanese_f = $row['japanese_f'];//和食の可=1/否=0
+    $western_f = $row['western_f'];//洋食の可=1/否=0
+    $asian_f = $row['asian_f'];//アジアの可=1/否=0
+    $curry = $row['curry'];//カレーの可=1/否=0
+    $yakiniku = $row['yakiniku'];//焼肉の可=1/否=0
+    $nabe = $row['nabe'];//鍋の可=1/否=0
+    $restaurant = $row['restaurant'];//レストランの可=1/否=0
+    $noodle = $row['noodle'];//麺類の可=1/否=0
+    $cafe = $row['cafe'];//カフェの可=1/否=0
+    $bread = $row['bread'];//パンの可=1/否=0
+    $liquor = $row['liquor'];//お酒の可=1/否=0
+    $others = $row['others'];//そのほかの可=1/否=0
 
     //定休日文字列
     $rst_close = "";
@@ -88,6 +87,47 @@
     echo '<img src="img/rst' . $rst_id . '_photo1.jpg" height="280">';
     ?>
     <h4>店舗名：</h4><?= $rst_name ?>
+    <?php
+    $rst_genre = "";
+    if ($japanese_f == 1) {
+        $rst_genre = $rst_genre . "日本食 ";
+    }
+    if ($western_f == 1) {
+        $rst_genre = $rst_genre . "洋食 ";
+    }
+    if ($asian_f == 1) {
+        $rst_genre = $rst_genre . "アジア ";
+    }
+    if ($curry == 1) {
+        $rst_genre = $rst_genre . "カレー ";
+    }
+    if ($yakiniku == 1) {
+        $rst_genre = $rst_genre . "焼肉 ";
+    }
+    if ($nabe == 1) {
+        $rst_genre = $rst_genre . "鍋 ";
+    }
+    if ($restaurant== 1) {
+        $rst_genre = $rst_genre . "レストラン ";
+    }
+    if ($noodle == 1) {
+        $rst_genre = $rst_genre . "麺類 ";
+    }
+    if ($cafe == 1) {
+        $rst_genre = $rst_genre . "カフェ ";
+    }
+    if ($bread == 1) {
+        $rst_genre = $rst_genre . "パン ";
+    }
+    if ($liquor == 1) {
+        $rst_genre = $rst_genre . "お酒 ";
+    }
+    if ($others == 1) {
+        $rst_genre = $rst_genre . "その他 ";
+    }
+    ?>
+    <h4>ジャンル：</h4><?= $rst_genre ?>
+
     <h4>店舗住所：</h4><?= $rst_address ?>
     <h4>開店時間：</h4>
     <?php
@@ -103,6 +143,7 @@
     <h4>店舗詳細：</h4><?= $rst_info ?>
     <h4>店舗URL：</h4><?php echo "<a href = '" . $rst_url . "'>" . $rst_url . "</a>";  ?>
     <h4>デリバリーURL：</h4><?php echo "<a href = '" . $delivery_url . "'>" . $delivery_url . "</a>";  ?>
+    <h4>価格帯：</h4><?= $budget_min ?>円～<?= $budget_max ?>円
     <h4>メニュー(写真)：</h4>
     <h4>メニューの説明：</h4><?= $menu_detail ?>
 
@@ -114,5 +155,19 @@
         echo '</iframe>';
     }
     echo '<h4>コメント：</h4>';
+    echo '<h5 align = "right">平均：'.$row['ave'].'　コメント数：'.$row['count'].'</h5>';
+
+
+    /*$sql = "SELECT * FROM `t_review` WHERE `user_id`= $uid AND `rst_id` = $rst_id";
+    $rs = $conn->query($sql);
+      if ($rs) {
+        $row = $rs->fetch_assoc();
+        while ($row) {
+            
+        }
+    }
+    echo 'console.log('.$row['review_comment'].')';
+    */
+    
     ?>
 </div>
