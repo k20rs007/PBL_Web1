@@ -94,11 +94,19 @@ rst_detail====================================================
 */
 
 .rst_detail {
-  padding-top: 10rem;
+  padding-top: 6rem;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width:23em;
+  width:50em;
+}
+
+.rst_detail img{
+  padding-top: 3%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30em;
 }
 
 /*

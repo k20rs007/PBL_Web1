@@ -1,5 +1,5 @@
 <div class="rst_detail">
-    <h3>店舗詳細</h3>
+    <h3 align = "center">店舗詳細</h3>
     <?php
     require_once('db_inc.php');
     $rst_id = $_GET['rst_id'];
@@ -56,7 +56,7 @@
     <?php
     if($rst_address != null)
     {
-        echo '<iframe width="80%" height="500pt" frameborder="0" scrolling="no"';
+        echo '<iframe width="100%" height="300pt" frameborder="0" scrolling="no"';
         echo "src='https://maps.google.com/maps?output=embed&hl=ja&q=<?=$rst_address?>'>";
         echo '</iframe>';
     }
