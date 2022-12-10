@@ -71,6 +71,7 @@
               <option value=4000>4000</option>
               <option value=4500>4500</option>
               <option value=5000>5000</option>
+              <option value=100000>5000以上</option>
             </select>
           </td>
         </tr>
@@ -156,6 +157,8 @@
         if ($_POST['budgetmax'] != "null" && $_POST['budgetmin'] != "null") {
           $budgetcount = 1;
           $sql = $sql . "(" . $_POST['budgetmax'] . ">= t_rstinfo.budget_max AND t_rstinfo.budget_min >= " . $_POST['budgetmin'] . ")";
+        } else if(isset($_POST['budgetmax'])) {
+
         }
       }
       //開店日
