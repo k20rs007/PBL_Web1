@@ -7,7 +7,6 @@ if (isset($_POST['act'])){
     $act = $_POST['act'];
     $rst_id = $_GET['rst_id'];
     $rst_name = $_POST['rst_name'];
-    $rst_photo = $_POST['rst_photo'];
     $rst_info = $_POST['rst_info'];
     $start_time_weekday_hour = $_POST['start_time_weekday_hour'];
     $start_time_weekday_min = $_POST['start_time_weekday_min'];
@@ -95,39 +94,39 @@ if (isset($_POST['act'])){
     }
 
     if(isset($_POST['monday'])) {
-      $monday = 1;
-    } else {
       $monday = 0;
+    } else {
+      $monday = 1;
     }
     if(isset($_POST['tuesday'])) {
-      $tuesday = 1;
-    } else {
       $tuesday = 0;
+    } else {
+      $tuesday = 1;
     }
     if(isset($_POST['wednesday'])) {
-      $wednesday = 1;
-    } else {
       $wednesday = 0;
+    } else {
+      $wednesday = 1;
     }
     if(isset($_POST['thursday'])) {
-      $thursday = 1;
-    } else {
       $thursday = 0;
+    } else {
+      $thursday = 1;
     }
     if(isset($_POST['friday'])) {
-      $friday = 1;
-    } else {
       $friday = 0;
+    } else {
+      $friday = 1;
     }
     if(isset($_POST['saturday'])) {
-      $saturday = 1;
-    } else {
       $saturday = 0;
+    } else {
+      $saturday = 1;
     }
     if(isset($_POST['sunday'])) {
-      $sunday = 1;
-    } else {
       $sunday = 0;
+    } else {
+      $sunday = 1;
     }
 
     $holiday_detail = $_POST['holiday_detail'];
@@ -146,13 +145,31 @@ if (isset($_POST['act'])){
 
     $delivery_url = $_POST['delivery_url'];
     $rst_address = $_POST['rst_address'];
-    $map = "";                              //マップ情報はテキスト
-    $photo1 = $_POST['photo1'];
-    $photo2 = $_POST['photo2'];
-    $photo3 = $_POST['photo3'];
+
+    if (!empty($_FILES['rst_photo']['name'])) {
+      $rst_photo = $_FILES['rst_photo']['name'];
+      move_uploaded_file($_FILES['rst_photo']['tmp_name'], './img/' . $rst_id ."_main".$rst_photo);
+      $rst_photo = $rst_id ."_main".$rst_photo;
+    }
+    if (!empty($_FILES['photo1']['name'])) {
+      $photo1 = $_FILES['photo1']['name'];
+      move_uploaded_file($_FILES['photo1']['tmp_name'], './img/' . $rst_id ."_1".$photo1);
+      $photo1 = $rst_id ."_1".$photo1;
+    }
+    if (!empty($_FILES['photo2']['name'])) {
+      $photo2 = $_FILES['photo2']['name'];
+      move_uploaded_file($_FILES['photo2']['tmp_name'], './img/' . $rst_id ."_2".$photo2);
+      $photo2 = $rst_id ."_2".$photo2;
+    }
+    if (!empty($_FILES['photo3']['name'])) {
+      $photo3 = $_FILES['photo3']['name'];
+      move_uploaded_file($_FILES['photo3']['tmp_name'], './img/' . $rst_id ."_3".$photo3);
+      $photo3 = $rst_id ."_3".$photo3;
+    }
+
     $menu_detail = $_POST['menu_detail'];
 
-    $genre = "";
+    //$genre = "";
 
 
     echo $rst_id.",";
@@ -220,39 +237,62 @@ if (isset($_POST['act'])){
     echo $num.",";
     echo $rst_id;
     */
+
+    
     
 
     //新規作成する場合
     $sql ="INSERT INTO t_rstinfo(rst_id,rst_name,rst_address,
     start_time_weekday,end_time_weekday,start_time_holiday,
-    end_time_holiday,tel_num,rst_info,map,rst_photo,photo1,photo2,photo3,
+    end_time_holiday,tel_num,rst_info,rst_photo,photo1,photo2,photo3,
     user_id,takeout,delivery,holiday_detail,rst_url,menu_detail,
-    budget_min,budget_max,delivery_url,genre) VALUES 
+    budget_min,budget_max,delivery_url) VALUES 
     ('{$rst_id}','{$rst_name}','{$rst_address}','{$start_time_weekday}', '{$end_time_weekday}',
      '{$start_time_holiday}','{$end_time_holiday}',
-     '{$tel_num}','{$rst_info}','{$map}','{$rst_photo}',
+     '{$tel_num}','{$rst_info}','{$rst_photo}',
      '{$photo1}','{$photo2}','{$photo3}','{$user_id}','{$takeout}','{$delivery}',
      '{$holiday_detail}','{$rst_url}','{$menu_detail}','{$budget_min}','{$budget_max}',
-     '{$delivery_url}','{$genre}')";
+     '{$delivery_url}')";
+
+    echo $sql;
     if ($act=='update'){  //編集する場合
       $sql ="UPDATE t_rstinfo SET rst_id='{$rst_id}', rst_name='{$rst_name}', rst_address='{$rst_address}',
       start_time_weekday='{$start_time_weekday}', end_time_weekday='{$end_time_weekday}', 
       start_time_holiday='{$start_time_holiday}', end_time_holiday='{$end_time_holiday}',
-      tel_num='{$tel_num}', rst_info='{$rst_info}', map='{$map}', rst_photo='{$rst_photo}',
+      tel_num='{$tel_num}', rst_info='{$rst_info}', rst_photo='{$rst_photo}',
       photo1='{$photo1}', photo2='{$photo2}', photo3='{$photo3}', user_id='{$user_id}',
       takeout='{$takeout}', delivery='{$delivery}', holiday_detail='{$holiday_detail}', rst_url='{$rst_url}',
       menu_detail='{$menu_detail}', budget_min='{$budget_min}', budget_max='{$budget_max}',
-      delivery_url='{$delivery_url}', genre='{$genre}'";
+      delivery_url='{$delivery_url}'";
     }
     //echo $sql;
     $conn->query($sql);
-    echo '<h3>店舗が追加されました</h3>';
+    
     $sql = "INSERT INTO t_genre(rst_id, japanese_f,western_f,asian_f,curry,yakiniku,nabe,restaurant,noodle,cafe,
     bread,liquor,others) VALUES
     ('{$rst_id}','{$japanese_f}','{$western_f}','{$asian_f}','{$curry}','{$yakiniku}','{$nabe}','{$restaurant}','{$noodle}','{$cafe}',
     '{$bread}','{$liquor}','{$others}')";
+    if ($act=='update'){  //編集する場合
+      $sql = "UPDATE t_genre SET
+      rst_id='{$rst_id}',japanese_f='{$japanese_f}',western_f='{$western_f}',asian_f='{$asian_f}',curry='{$curry}',yakiniku='{$yakiniku}',
+      nabe='{$nabe}',restaurant='{$restaurant}',noodle='{$noodle}',cafe='{$cafe}',
+      bread='{$bread}',liquor='{$liquor}',others='{$others}'";
+    }
     $conn->query($sql);
-    
+
+    $sql = "INSERT INTO t_open(rst_id, monday,tuesday,wednesday,thursday,friday,
+    saturday,sunday) VALUES
+    ('{$rst_id}','{$monday}','{$tuesday}','{$wednesday}','{$thursday}','{$friday}',
+    '{$saturday}','{$sunday}')";
+    if ($act=='update'){  //編集する場合
+      $sql = "UPDATE t_open SET
+      rst_id='{$rst_id}',monday='{$monday}',tuesday='{$tuesday}',wednesday='{$wednesday}',thursday='{$thursday}',friday='{$friday}',
+      saturday='{$saturday}',sunday='{$sunday}'";
+    }
+    $conn->query($sql);
+
+    echo '<h3>店舗が追加されました</h3>';
 }
+
 ?>
 </div>

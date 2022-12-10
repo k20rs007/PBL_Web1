@@ -1,5 +1,33 @@
-<?php
+<!--
+
   require_once('db_inc.php');
+
+  if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+    // 画像を取得
+
+} else {
+    // 画像を保存
+    if (!empty($_FILES['test']['name'])) {
+        $name = $_FILES['test']['name'];
+
+        move_uploaded_file($_FILES['test']['tmp_name'], './img/' . $name);
+        echo '<img src="./img/' . $name . '">';     
+    }
+    if(!empty($_POST['testtest'])) {
+      echo $_POST['testtest'];     
+    }
+}
+-->
+
+
+
+
+
+
+
+
+
+<?php
   $user_id = $_SESSION['user_id'];
   // 変数の初期化。新規登録か編集かにより異なる。
   $act = 'insert';// 新規登録の場合
@@ -34,29 +62,37 @@
   /*
   */
 ?>
+<div class="rst_add">
+<!--
+<form action="?do=rst_add" method="post" enctype="multipart/form-data">
+<input type="file" name="test"></input>
+<input type='text' name="testtest"></input>
+<button>送信</button>
+</form>
+-->
 <?php
-  echo '<form action="?do=rst_save&rst_id='.$rst_id.'"  method="post">';
+  echo '<form action="?do=rst_save&rst_id='.$rst_id.'"  method="post" enctype="multipart/form-data">';
 ?>
 <input type="hidden" name="act" value="<?php echo $act; ?>">
-  <div class="rst_add">
+  <!--<div class="rst_add">-->
     <h2>店舗登録</h2>
-    <?php echo $rst_id ?>
+    <?php //echo $rst_id ?>
     <table>
       <tr>
           <td>店舗名</td>
-          <td><input type="text" name="rst_name"></td>
+          <td><input type="text" name="rst_name" required></td>
       </tr>
       <tr>
           <td>店舗画像</td>
-          <td><input type="file" name="rst_photo"></td>
+          <td><input type="file" name="rst_photo" required></td>
       </tr>
       <tr>
           <td>店舗説明</td>
-          <td><textarea name="rst_info"></textarea></td>
+          <td><textarea name="rst_info" required></textarea></td>
       </tr>
       <tr>
           <td>時間(平日)</td>
-          <td><select name="start_time_weekday_hour">
+          <td><select name="start_time_weekday_hour" required>
             <?php
               for($num = 0; $num <= 24; $num++) {
                 if($num<10) {
@@ -69,7 +105,7 @@
             ?>
           <td>:</td>
           </td>
-          <td><select name="start_time_weekday_min">
+          <td><select name="start_time_weekday_min" required>
             echo '<option>00</option>';
             <?php
               for($num = 1; $num <= 59; $num++) {
@@ -83,7 +119,7 @@
             ?>
           </td>
           <td>~</td>
-          <td><select name="end_time_weekday_hour">
+          <td><select name="end_time_weekday_hour" required>
             <?php
               for($num = 0; $num <= 24; $num++) {
                 if($num<10) {
@@ -96,7 +132,7 @@
             ?>
           <td>:</td>
           </td>
-          <td><select name="end_time_weekday_min">
+          <td><select name="end_time_weekday_min" required>
             echo '<option>00</option>';
             <?php
               for($num = 1; $num <= 59; $num++) {
@@ -112,7 +148,7 @@
       </tr>
       <tr>
           <td>時間(休日)</td>
-          <td><select name="start_time_holiday_hour">
+          <td><select name="start_time_holiday_hour" required>
             <?php
               for($num = 0; $num <= 24; $num++) {
                 if($num<10) {
@@ -125,7 +161,7 @@
             ?>
           <td>:</td>
           </td>
-          <td><select name="start_time_holiday_min">
+          <td><select name="start_time_holiday_min" required>
             echo '<option>00</option>';
             <?php
               for($num = 1; $num <= 59; $num++) {
@@ -139,7 +175,7 @@
             ?>
           </td>
           <td>~</td>
-          <td><select name="end_time_holiday_hour">
+          <td><select name="end_time_holiday_hour" required>
             <?php
               for($num = 0; $num <= 24; $num++) {
                 if($num<10) {
@@ -152,7 +188,7 @@
             ?>
           <td>:</td>
           </td>
-          <td><select name="end_time_holiday_min">
+          <td><select name="end_time_holiday_min" required>
             echo '<option>00</option>';
             <?php
               for($num = 1; $num <= 59; $num++) {
@@ -168,17 +204,17 @@
       </tr>
       <tr>
           <td>電話番号</td>
-          <td><input type="text" name="tel_num_1"></td>
+          <td><input type="text" name="tel_num_1" required></td>
           <td>-</td>
-          <td><input type="text" name="tel_num_2"></td>
+          <td><input type="text" name="tel_num_2" required></td>
           <td>-</td>
-          <td><input type="text" name="tel_num_3"></td>
+          <td><input type="text" name="tel_num_3" required></td>
       </tr>
       <tr>
           <td>値段目安</td>
-          <td><input type="text" name="budget_min"></td>
+          <td><input type="text" name="budget_min" required></td>
           <td>~</td>
-          <td><input type="text" name="budget_max"></td>
+          <td><input type="text" name="budget_max" required></td>
       </tr>
       <tr>
           <td>ジャンル</td>
@@ -283,7 +319,7 @@
   <?php
     //$rst_id = filter_input(INPUT_POST, 'rst_id');
     $rst_name = filter_input(INPUT_POST, 'rst_name');
-    $rst_photo = filter_input(INPUT_POST, 'rst_photo');
+    
     $start_time_weekday_hour = filter_input(INPUT_POST, 'start_time_weekday_hour');
     $start_time_weekday_min = filter_input(INPUT_POST, 'start_time_weekday_min');
     $end_time_weekday_hour = filter_input(INPUT_POST, 'end_time_weekday_hour');
@@ -325,9 +361,14 @@
     $delivery = filter_input(INPUT_POST, 'delivery');
     $delivery_url = filter_input(INPUT_POST, 'delivery_url');
     $rst_address = filter_input(INPUT_POST, 'rst_address');
+    $menu_detail = filter_input(INPUT_POST, 'menu_detail');
+    
+
+    $rst_photo = filter_input(INPUT_POST, 'rst_photo');
     $photo1 = filter_input(INPUT_POST, 'photo1');
     $photo2 = filter_input(INPUT_POST, 'photo2');
     $photo3 = filter_input(INPUT_POST, 'photo3');
-    $menu_detail = filter_input(INPUT_POST, 'menu_detail');
-  ?>
+    //$name = $_FILES['rst_photo']['name'];
+    //echo $name;
+    ?>
 </div>
