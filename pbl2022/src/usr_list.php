@@ -22,7 +22,7 @@ while ($row) {
   echo '<tr>';
   echo '<td>' . $row['user_id'] . '</td>';
   echo '<td>' . $row['user_name']. '</td>';
-  echo '<td>' . $row['user_name']. '</td>';
+  echo '<td>' . $row['user_kana']. '</td>';
  // echo '<td>' . $row['usertype_id']. '</td>';
  //$codes = array('1'=>'会員', '2'=>'ゲスト','9'=>'管理者');
  //$i  = $row['usertype_id'];     // 数字のユーザ種別をで取得
