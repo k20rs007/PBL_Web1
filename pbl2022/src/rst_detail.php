@@ -51,7 +51,10 @@
         echo '<a href="?do=rst_add&rst_id='.$rst_id.'">編集</a>';
     }
     if($_SESSION['usertype_id']=='9') {
-        echo '<a href="?do=rst_delete&rst_id='.$rst_id.'">削除</a>';
+        $delete_url = "'?do=rst_delete&rst_id=".$rst_id."'";
+        echo "<td><form method='post' action='?do=rst_delete&rst_id=".$rst_id."'' onsubmit='return deletecorrect()'>";
+        echo '<input type="submit" value="削除" name="delete" />';
+        echo '</form></td>';
     }
     //定休日文字列
     $rst_close = "";
