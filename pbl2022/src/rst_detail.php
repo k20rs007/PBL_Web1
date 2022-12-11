@@ -32,26 +32,26 @@
     $rst_url = $row['rst_url']; //店舗のホームページ
     $delivery_url = $row['delivery_url']; //デリバリーのホームページ
     $menu_detail = $row['menu_detail']; //メニューの備考
-    $budget_max = $row['budget_max']; //価格帯（最大）
-    $budget_min = $row['budget_min']; //価格帯（最小)
-    $delivery_url = $row['delivery_url']; //出前サイトのURL
-    $japanese_f = $row['japanese_f']; //和食の可=1/否=0
-    $western_f = $row['western_f']; //洋食の可=1/否=0
-    $asian_f = $row['asian_f']; //アジアの可=1/否=0
-    $curry = $row['curry']; //カレーの可=1/否=0
-    $yakiniku = $row['yakiniku']; //焼肉の可=1/否=0
-    $nabe = $row['nabe']; //鍋の可=1/否=0
-    $restaurant = $row['restaurant']; //レストランの可=1/否=0
-    $noodle = $row['noodle']; //麺類の可=1/否=0
-    $cafe = $row['cafe']; //カフェの可=1/否=0
-    $bread = $row['bread']; //パンの可=1/否=0
-    $liquor = $row['liquor']; //お酒の可=1/否=0
-    $others = $row['others']; //そのほかの可=1/否=0
-
-    if (isset($_SESSION['user_id'])) {
-        if ($uid == $user_id) {
-            echo '<a href="?do=rst_add&rst_id=' . $rst_id . '">編集</a>';
-        }
+    $budget_max = $row['budget_max'];//価格帯（最大）
+    $budget_min = $row['budget_min'];//価格帯（最小)
+    $delivery_url = $row['delivery_url'];//出前サイトのURL
+    $japanese_f = $row['japanese_f'];//和食の可=1/否=0
+    $western_f = $row['western_f'];//洋食の可=1/否=0
+    $asian_f = $row['asian_f'];//アジアの可=1/否=0
+    $curry = $row['curry'];//カレーの可=1/否=0
+    $yakiniku = $row['yakiniku'];//焼肉の可=1/否=0
+    $nabe = $row['nabe'];//鍋の可=1/否=0
+    $restaurant = $row['restaurant'];//レストランの可=1/否=0
+    $noodle = $row['noodle'];//麺類の可=1/否=0
+    $cafe = $row['cafe'];//カフェの可=1/否=0
+    $bread = $row['bread'];//パンの可=1/否=0
+    $liquor = $row['liquor'];//お酒の可=1/否=0
+    $others = $row['others'];//そのほかの可=1/否=0
+    if($uid==$user_id) {
+        echo '<a href="?do=rst_add&rst_id='.$rst_id.'">編集</a>';
+    }
+    if($_SESSION['usertype_id']=='9') {
+        echo '<a href="?do=rst_delete&rst_id='.$rst_id.'">削除</a>';
     }
     //定休日文字列
     $rst_close = "";
