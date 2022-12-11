@@ -31,7 +31,9 @@ while ($row) {
  $detail_url = "'?do=usr_detail&user_id=".$user_id."'";
  $delete_url = "'?do=usr_delete&user_id=".$user_id."'";
   echo '<td><button onclick=location.href='.$detail_url.'>詳細表示</button></td>';
-  echo '<td><button onclick="return submitChk(),location.href='.$delete_url.'">削除</button></td>';
+  echo '<td><form method="post" action="?do=usr_delete&user_id='.$user_id.'" onsubmit="return submitChk()">';
+  echo '<input type="submit" value="削除" name="delete" />';
+  echo '</form></td>';
   echo '</tr>';
  $row= $rs->fetch_assoc();//次の行へ
 }
