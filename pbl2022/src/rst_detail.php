@@ -16,8 +16,8 @@
 
     $rst_start_time_weekday = $row['start_time_weekday']; //平日の営業開始日
     $rst_end_time_weekday = $row['end_time_weekday']; //平日の営業終了日
-    $rst_start_time_holiday = $row['start_tome_holiday']; //祝日の営業開始日
-    $rst_end_time_holiday = $row['end_tome_holiday']; //祝日の営業終了日
+    $rst_start_time_holiday = $row['start_time_holiday']; //祝日の営業開始日
+    $rst_end_time_holiday = $row['end_time_holiday']; //祝日の営業終了日
 
     $tel_num = $row['tel_num']; //店舗の電話番号
     $rst_info = $row['rst_info']; //店舗説明

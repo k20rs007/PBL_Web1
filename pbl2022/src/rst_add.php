@@ -1,7 +1,7 @@
+
+
+
 <!--
-
-  require_once('db_inc.php');
-
   if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     // 画像を取得
 
@@ -28,6 +28,8 @@
 
 
 <?php
+  require_once('db_inc.php');
+  
   $user_id = $_SESSION['user_id'];
   // 変数の初期化。新規登録か編集かにより異なる。
   $act = 'insert';// 新規登録の場合
