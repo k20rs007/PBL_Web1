@@ -549,7 +549,7 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
 
       echo '<td>';
       for ($num = 0; $num <= 11; $num++) {
-        echo '<input type="checkbox" id="genre_' . $num . '" name="' . $tb_genre[$num] . '"'.$tb_genre_checked[$num].'><label for="' . $genre[$num] . '">' . $genre[$num] . "　".'</label>';
+        echo '<input type="checkbox" class="check" id="genre_' . $num . '" name="' . $tb_genre[$num] . '"'.$tb_genre_checked[$num].'><label for="' . $genre[$num] . '">' . $genre[$num] . "　".'</label>';
       }
       echo '</td>';
       ?>
@@ -685,7 +685,7 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
       </td>
     </tr>
   </table>
-  <button>登録</button>
+  <button onclick="return isCheck()">登録</button>
   </form>
 
   <?php
@@ -781,4 +781,21 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
     }
     reader.readAsDataURL(e.target.files[0]);
   });
+
+  function isCheck() {
+    let arr_checkBoxes = document.getElementsByClassName("check");
+    let count = 0;
+    for (let i = 0; i < arr_checkBoxes.length; i++) {
+        if (arr_checkBoxes[i].checked) {
+            count++;
+        }
+    }
+    if (count > 0) {
+        return true;
+    } else {
+        window.alert("ジャンルを1つ以上選択してください。");
+        return false;
+    };
+ 
+}
 </script>
