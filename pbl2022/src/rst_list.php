@@ -292,7 +292,7 @@
     <?php
     if (isset($_COOKIE['value'])) {
       $val = $_COOKIE['value'];
-      echo "console.log('" . $val . "');";
+      //echo "console.log('" . $val . "');";
     }
     ?>
 

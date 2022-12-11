@@ -1,6 +1,22 @@
 <div class=rst_save>
 <?php
 require_once('db_inc.php');
+$rst_id = $_GET['rst_id'];
+$sql = "SELECT * FROM `t_rstinfo` WHERE rst_id='{$rst_id}'";
+  $rs = $conn->query($sql);;
+  if (!$rs) die('エラー: ' . $conn->error);
+  $row = $rs->fetch_assoc();;
+  if ($row) { // 既存アカウントを編集するために、変数に代入
+    $rst_photo = $row['rst_photo'];
+    $photo1 = $row['photo1'];
+    $photo2 = $row['photo2'];
+    $photo3 = $row['photo3'];
+    //echo $rst_photo.',';
+    //echo $photo1.',';
+    //echo $photo2.',';
+    //echo $photo3.',';
+  }
+
 
 if (isset($_POST['act'])){
     $user_id = $_SESSION['user_id'];
@@ -155,30 +171,39 @@ if (isset($_POST['act'])){
       $photo1 = $_FILES['photo1']['name'];
       move_uploaded_file($_FILES['photo1']['tmp_name'], './img/' . $rst_id ."_1".$photo1);
       $photo1 = $rst_id ."_1".$photo1;
-    } else {
+    }
+    /*
+     else {
       $photo1 = "noimage";
     }
+    */
     if (!empty($_FILES['photo2']['name'])) {
       $photo2 = $_FILES['photo2']['name'];
       move_uploaded_file($_FILES['photo2']['tmp_name'], './img/' . $rst_id ."_2".$photo2);
       $photo2 = $rst_id ."_2".$photo2;
-    } else {
+    }
+    /*
+     else {
       $photo2 = "noimage";
     }
+    */
     if (!empty($_FILES['photo3']['name'])) {
       $photo3 = $_FILES['photo3']['name'];
       move_uploaded_file($_FILES['photo3']['tmp_name'], './img/' . $rst_id ."_3".$photo3);
       $photo3 = $rst_id ."_3".$photo3;
-    } else {
+    }
+    /*
+     else {
       $photo3 = "noimage";
     }
+    */
 
     $menu_detail = $_POST['menu_detail'];
 
     //$genre = "";
 
 
-    echo $rst_id.",";
+    //echo $rst_id.",";
     /*
     echo $user_id.",";
     echo $rst_photo.",";
@@ -260,44 +285,44 @@ if (isset($_POST['act'])){
      '{$holiday_detail}','{$rst_url}','{$menu_detail}','{$budget_min}','{$budget_max}',
      '{$delivery_url}')";
 
-    echo $sql;
     if ($act=='update'){  //編集する場合
-      $sql ="UPDATE t_rstinfo SET rst_id='{$rst_id}', rst_name='{$rst_name}', rst_address='{$rst_address}',
+      $sql ="UPDATE t_rstinfo SET rst_name='{$rst_name}', rst_address='{$rst_address}',
       start_time_weekday='{$start_time_weekday}', end_time_weekday='{$end_time_weekday}', 
       start_time_holiday='{$start_time_holiday}', end_time_holiday='{$end_time_holiday}',
       tel_num='{$tel_num}', rst_info='{$rst_info}', rst_photo='{$rst_photo}',
       photo1='{$photo1}', photo2='{$photo2}', photo3='{$photo3}', user_id='{$user_id}',
       takeout='{$takeout}', delivery='{$delivery}', holiday_detail='{$holiday_detail}', rst_url='{$rst_url}',
       menu_detail='{$menu_detail}', budget_min='{$budget_min}', budget_max='{$budget_max}',
-      delivery_url='{$delivery_url}'";
+      delivery_url='{$delivery_url}' WHERE rst_id='{$rst_id}'";
     }
     //echo $sql;
     $conn->query($sql);
     
     $sql = "INSERT INTO t_genre(rst_id, japanese_f,western_f,asian_f,curry,yakiniku,nabe,restaurant,noodle,cafe,
-    bread,liquor,others) VALUES
+    bread,liquor,others) VALUES 
     ('{$rst_id}','{$japanese_f}','{$western_f}','{$asian_f}','{$curry}','{$yakiniku}','{$nabe}','{$restaurant}','{$noodle}','{$cafe}',
     '{$bread}','{$liquor}','{$others}')";
     if ($act=='update'){  //編集する場合
-      $sql = "UPDATE t_genre SET
-      rst_id='{$rst_id}',japanese_f='{$japanese_f}',western_f='{$western_f}',asian_f='{$asian_f}',curry='{$curry}',yakiniku='{$yakiniku}',
+      $sql = "UPDATE t_genre SET 
+      japanese_f='{$japanese_f}',western_f='{$western_f}',asian_f='{$asian_f}',curry='{$curry}',yakiniku='{$yakiniku}',
       nabe='{$nabe}',restaurant='{$restaurant}',noodle='{$noodle}',cafe='{$cafe}',
-      bread='{$bread}',liquor='{$liquor}',others='{$others}'";
+      bread='{$bread}',liquor='{$liquor}',others='{$others}' WHERE rst_id='{$rst_id}'";
     }
     $conn->query($sql);
 
     $sql = "INSERT INTO t_open(rst_id, monday,tuesday,wednesday,thursday,friday,
-    saturday,sunday) VALUES
+    saturday,sunday) VALUES 
     ('{$rst_id}','{$monday}','{$tuesday}','{$wednesday}','{$thursday}','{$friday}',
     '{$saturday}','{$sunday}')";
     if ($act=='update'){  //編集する場合
-      $sql = "UPDATE t_open SET
-      rst_id='{$rst_id}',monday='{$monday}',tuesday='{$tuesday}',wednesday='{$wednesday}',thursday='{$thursday}',friday='{$friday}',
-      saturday='{$saturday}',sunday='{$sunday}'";
+      $sql = "UPDATE t_open SET 
+      monday='{$monday}',tuesday='{$tuesday}',wednesday='{$wednesday}',thursday='{$thursday}',friday='{$friday}',
+      saturday='{$saturday}',sunday='{$sunday}' WHERE rst_id='{$rst_id}'";
     }
     $conn->query($sql);
 
     echo '<h3>店舗が追加されました</h3>';
+    //echo $act;
 }
 
 ?>
