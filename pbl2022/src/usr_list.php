@@ -28,12 +28,10 @@ while ($row) {
  //$i  = $row['usertype_id'];     // 数字のユーザ種別をで取得
  //echo '<td>' . $codes[$i] . '</td>'; // ユーザ種別名を出力
  $user_id = $row['user_id'];
-  echo '<td><form method="post" action="?do=usr_detail&user_id='.$user_id.'">';
-  echo '<input type="submit" value="詳細表示" name="detail" />';
-  echo '</form></ td>';
-  echo '<td><form method="post" action="?do=usr_delete&user_id='.$user_id.'" onsubmit="return submitChk()">';
-  echo '<input type="submit" value="削除" name="delete" />';
-  echo '</form></ td>';
+ $detail_url = "'?do=usr_detail&user_id=".$user_id."'";
+ $delete_url = "'?do=usr_delete&user_id=".$user_id."'";
+  echo '<td><button onclick=location.href='.$detail_url.'>詳細表示</button></td>';
+  echo '<td><button onclick="return submitChk(),location.href='.$delete_url.'">削除</button></td>';
   echo '</tr>';
  $row= $rs->fetch_assoc();//次の行へ
 }
