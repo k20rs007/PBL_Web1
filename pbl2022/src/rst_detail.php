@@ -284,7 +284,9 @@
 
         if (isset($_SESSION['usertype_id']) &&  $_SESSION['usertype_id'] == 9) {
             $delete_url = "'?do=review_delete&review_id=".$row['review_id']."&rst_id=".$row['rst_id']."'";
-            echo '<td><button onclick="return deletecorrect(),location.href=' . $delete_url . '">削除</button></td>';
+            echo "<td><form method='post' action='?do=review_delete&review_id=".$row['review_id']."&rst_id=".$row['rst_id']."' onsubmit='return deletecorrect()'>";
+            echo '<input type="submit" value="削除" name="delete" />';
+            echo '</form></td>';
         }
         echo '<tr>';
         $row = $rs->fetch_assoc();
