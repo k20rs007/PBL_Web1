@@ -72,24 +72,6 @@ pb_home====================================================
 }
 
 /*
-pg_mypage====================================================
-*/
-
-.pg_mypage {
-  padding-top: 10rem;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width:23em;
-}
-
-.pg_mypage td
-{
-  position: relative;
-  left:50%;
-}
-
-/*
 rst_detail====================================================
 */
 
@@ -201,4 +183,32 @@ usr_list====================================================
   margin-left: auto;
   width:50%;
   text-align: center
+}
+
+/*
+pg_mypage====================================================
+*/
+
+
+.myinf {
+  padding-top: 10rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width:23em;
+}
+
+.pg_mypage .rst_grid {
+  margin: 0 auto;
+  width:80%;
+  padding-top: 5rem;
+  display: grid;
+  gap:26px;
+  grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+}
+
+.pg_mypage td
+{
+  position: relative;
+  left:50%;
 }
