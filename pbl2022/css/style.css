@@ -205,7 +205,6 @@ usr_list====================================================
 pg_mypage====================================================
 */
 
-
 .myinf {
   padding-top: 10rem;
   display: block;
@@ -235,6 +234,11 @@ pg_mypage====================================================
   margin-left: auto;
   margin-right: auto;
   width:23em;
+}
+
+.adminmypage button {
+  padding: 5px;
+  margin: 20px;
 }
 
 /*
