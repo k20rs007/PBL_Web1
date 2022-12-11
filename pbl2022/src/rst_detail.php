@@ -47,10 +47,10 @@
     $bread = $row['bread'];//パンの可=1/否=0
     $liquor = $row['liquor'];//お酒の可=1/否=0
     $others = $row['others'];//そのほかの可=1/否=0
-    if($uid==$user_id) {
+    if(isset($_SESSION['usertype_id']) && $uid==$user_id) {
         echo '<a href="?do=rst_add&rst_id='.$rst_id.'">編集</a>';
     }
-    if($_SESSION['usertype_id']=='9') {
+    if(isset($_SESSION['usertype_id']) && $_SESSION['usertype_id']=='9') {
         $delete_url = "'?do=rst_delete&rst_id=".$rst_id."'";
         echo "<td><form method='post' action='?do=rst_delete&rst_id=".$rst_id."'' onsubmit='return deletecorrect()'>";
         echo '<input type="submit" value="削除" name="delete" />';
@@ -157,23 +157,33 @@
     <h4>メニュー(写真)：</h4>
     <div class="imgcontent">
         <?php
-            if($photo1==$photo2) {
-                if($photo2==$photo3) {
-                    if($photo1=="noimage") {
-                        echo '写真が登録されていません。';
-                    }
-                } 
-            }else {
-                if($photo1!="noimage") {
-                    echo '<img src="img/' . $photo1.'" class = "smallimg">';
+        if ($photo1 == $photo2) {
+            if ($photo2 == $photo3) {
+                if ($photo1 == "noimage") {
+                    echo '写真が登録されていません。';
+                } else {
+                    echo '<img src="img/' . $photo1 . '" class = "smallimg">';
                 }
-                if($photo2!="noimage") {
-                    echo '<img src="img/' . $photo2.'" class = "smallimg">'; 
+            } else {
+                echo '<img src="img/' . $photo1 . '" class = "smallimg">';
+                echo '<img src="img/' . $photo3 . '" class = "smallimg">';
+            }
+        } else {
+            if ($photo2 == $photo3 || $photo1 == $photo3) {
+                echo '<img src="img/' . $photo1 . '" class = "smallimg">';
+                echo '<img src="img/' . $photo2 . '" class = "smallimg">';
+            } else {
+                if ($photo1 != "noimage") {
+                    echo '<img src="img/' . $photo1 . '" class = "smallimg">';
                 }
-                if($photo3!="noimage") {
-                    echo '<img src="img/' . $photo3.'" class = "smallimg">'; 
+                if ($photo2 != "noimage") {
+                    echo '<img src="img/' . $photo2 . '" class = "smallimg">';
+                }
+                if ($photo3 != "noimage") {
+                    echo '<img src="img/' . $photo3 . '" class = "smallimg">';
                 }
             }
+        }
         ?>
     </div>
     <h4>メニューの説明：</h4><?= $menu_detail ?>
@@ -185,8 +195,20 @@
         echo "src='https://maps.google.com/maps?output=embed&hl=ja&q=<?=$rst_address?>'>";
         echo '</iframe>';
     }
+    echo '<table>';
+    echo '<tr>';
+    echo '<td>';
     echo '<h4>口コミ：</h4>';
-    echo '<h5 align = "right">平均：' . $row['ave'] . '　コメント数：' . $row['count'] . '</h5>';
+    echo '</td>';
+    echo '<td>';
+    $ave = round($row['ave']*2, 0) / 2;
+    echo '<p><span class="star5_rating" data-rate="'.$ave.'"></span></p>';
+    echo '</td>';
+    echo '<td>';
+    echo "<h5>(" . $row['count'] . ")</h5>";
+    echo '</td>';
+    echo '</tr>';
+    
 
 
 
