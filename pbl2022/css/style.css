@@ -229,6 +229,14 @@ pg_mypage====================================================
   left:50%;
 }
 
+.adminmypage {
+  padding-top: 10rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width:23em;
+}
+
 /*
 rst_delete====================================================
 */

@@ -87,12 +87,16 @@
       echo '</div>';
       echo '</div>';
     }
+
+
+    echo '<div class = "adminmypage">';
     if ($_SESSION['usertype_id'] === '9') {  //管理者
       $url1 = "location.href='./?do=usr_add&user_id=" . $row['user_id'] . "'";
       $url2 = "location.href='./?do=usr_list'";
-      echo '<button type="button" style="width:450px;height:50px" onclick="' . $url1 . '">管理者情報変更</buton>';
-      echo '<button type="button" style="position:absolute; bottom:370px; width:450px;height:50px" onclick="' . $url2 . '">アカウント一覧表示</buton>';
+      echo '<button type="button" onclick="' . $url1 . '">管理者情報変更</buton>';
+      echo '<button type="button" onclick="' . $url2 . '">アカウント一覧表示</buton>';
     }
+    echo '</div>';
   }
 
   ?>
