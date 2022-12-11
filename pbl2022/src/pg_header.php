@@ -8,7 +8,7 @@
   <header>
   <div class="wrapper">
 
-  <a align="left" href="index.php">戻る</button>
+  <a href="#" align="left" onclick="history.back(); return false;">戻る</button>
   
   <?php
   if (isset($_SESSION['usertype_id'])){
