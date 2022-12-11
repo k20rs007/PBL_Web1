@@ -2,7 +2,9 @@
     <h1 align="center">店舗詳細</h1>
     <?php
     require_once('db_inc.php');
-    $uid  = $_SESSION['user_id'];
+    if (isset($_SESSION['user_id'])) {
+        $uid  = $_SESSION['user_id'];
+    }
     $rst_id = $_GET['rst_id'];
     $sql = "SELECT *, (SELECT COUNT(*) FROM t_review WHERE t_rstinfo.rst_id = t_review.rst_id) as count,
     (SELECT ROUND(AVG(eval_point),1) FROM t_review WHERE t_rstinfo.rst_id = t_review.rst_id) as ave 
@@ -21,31 +23,36 @@
 
     $tel_num = $row['tel_num']; //店舗の電話番号
     $rst_info = $row['rst_info']; //店舗説明
-    $rst_photo = $row['rst_photo'];//店舗の画像
-    $photo1 = $row['photo1'];//メニューの画像１
-    $photo2 = $row['photo2'];//メニューの画像２
-    $photo3 = $row['photo3'];//メニューの画像３
-    //$uer_id = $row['user_id'];//登録したユーザ
+    $rst_photo = $row['rst_photo']; //店舗の画像
+    $photo1 = $row['photo1']; //メニューの画像１
+    $photo2 = $row['photo2']; //メニューの画像２
+    $photo3 = $row['photo3']; //メニューの画像３
+    $user_id = $row['user_id']; //登録したユーザ
     $holiday_detail = $row['holiday_detail']; //休日の備考
     $rst_url = $row['rst_url']; //店舗のホームページ
     $delivery_url = $row['delivery_url']; //デリバリーのホームページ
     $menu_detail = $row['menu_detail']; //メニューの備考
-    $budget_max = $row['budget_max'];//価格帯（最大）
-    $budget_min = $row['budget_min'];//価格帯（最小)
-    $delivery_url = $row['delivery_url'];//出前サイトのURL
-    $japanese_f = $row['japanese_f'];//和食の可=1/否=0
-    $western_f = $row['western_f'];//洋食の可=1/否=0
-    $asian_f = $row['asian_f'];//アジアの可=1/否=0
-    $curry = $row['curry'];//カレーの可=1/否=0
-    $yakiniku = $row['yakiniku'];//焼肉の可=1/否=0
-    $nabe = $row['nabe'];//鍋の可=1/否=0
-    $restaurant = $row['restaurant'];//レストランの可=1/否=0
-    $noodle = $row['noodle'];//麺類の可=1/否=0
-    $cafe = $row['cafe'];//カフェの可=1/否=0
-    $bread = $row['bread'];//パンの可=1/否=0
-    $liquor = $row['liquor'];//お酒の可=1/否=0
-    $others = $row['others'];//そのほかの可=1/否=0
+    $budget_max = $row['budget_max']; //価格帯（最大）
+    $budget_min = $row['budget_min']; //価格帯（最小)
+    $delivery_url = $row['delivery_url']; //出前サイトのURL
+    $japanese_f = $row['japanese_f']; //和食の可=1/否=0
+    $western_f = $row['western_f']; //洋食の可=1/否=0
+    $asian_f = $row['asian_f']; //アジアの可=1/否=0
+    $curry = $row['curry']; //カレーの可=1/否=0
+    $yakiniku = $row['yakiniku']; //焼肉の可=1/否=0
+    $nabe = $row['nabe']; //鍋の可=1/否=0
+    $restaurant = $row['restaurant']; //レストランの可=1/否=0
+    $noodle = $row['noodle']; //麺類の可=1/否=0
+    $cafe = $row['cafe']; //カフェの可=1/否=0
+    $bread = $row['bread']; //パンの可=1/否=0
+    $liquor = $row['liquor']; //お酒の可=1/否=0
+    $others = $row['others']; //そのほかの可=1/否=0
 
+    if (isset($_SESSION['user_id'])) {
+        if ($uid == $user_id) {
+            echo '<a href="?do=rst_add&rst_id=' . $rst_id . '">編集</a>';
+        }
+    }
     //定休日文字列
     $rst_close = "";
     if ($row['sunday'] == 0) {
@@ -84,7 +91,7 @@
         echo '　　　　', 'デリバリー：不可';
     }
     echo '</p>';
-    echo '<img src="img/' . $rst_photo.'">';
+    echo '<img class = "bigimg" src="img/' . $rst_photo . '">';
     ?>
     <h4>店舗名：</h4><?= $rst_name ?>
     <?php
@@ -107,7 +114,7 @@
     if ($nabe == 1) {
         $rst_genre = $rst_genre . "鍋 ";
     }
-    if ($restaurant== 1) {
+    if ($restaurant == 1) {
         $rst_genre = $rst_genre . "レストラン ";
     }
     if ($noodle == 1) {
@@ -131,7 +138,7 @@
     <h4>店舗住所：</h4><?= $rst_address ?>
     <h4>開店時間：</h4>
     <?php
-    if ($rst_start_time_weekday != $rst_end_time_weekday ) {
+    if ($rst_start_time_weekday != $rst_end_time_weekday) {
         echo '平日　' . $rst_start_time_weekday . '～' . $rst_end_time_weekday;
     }
     if ($rst_start_time_holiday != $rst_end_time_holiday) {
@@ -145,35 +152,37 @@
     <h4>デリバリーURL：</h4><?php echo "<a href = '" . $delivery_url . "'>" . $delivery_url . "</a>";  ?>
     <h4>価格帯：</h4><?= $budget_min ?>円～<?= $budget_max ?>円
     <h4>メニュー(写真)：</h4>
-    <?php
-        if($photo1==$photo2) {
-            if($photo2==$photo3) {
-                if($photo1=="noimage") {
+    <div class="imgcontent">
+        <?php
+        if ($photo1 == $photo2) {
+            if ($photo2 == $photo3) {
+                if ($photo1 == "noimage") {
                     echo '写真が登録されていません。';
                 } else {
-                    echo '<img src="img/' . $photo1.'">';
+                    echo '<img src="img/' . $photo1 . '" class = "smallimg">';
                 }
             } else {
-                echo '<img src="img/' . $photo1.'">';
-                echo '<img src="img/' . $photo3.'">';
+                echo '<img src="img/' . $photo1 . '" class = "smallimg">';
+                echo '<img src="img/' . $photo3 . '" class = "smallimg">';
             }
         } else {
-            if($photo2==$photo3||$photo1==$photo3) {
-                echo '<img src="img/' . $photo1.'">';
-                echo '<img src="img/' . $photo2.'">';
+            if ($photo2 == $photo3 || $photo1 == $photo3) {
+                echo '<img src="img/' . $photo1 . '" class = "smallimg">';
+                echo '<img src="img/' . $photo2 . '" class = "smallimg">';
             } else {
-                if($photo1!="noimage") {
-                    echo '<img src="img/' . $photo1.'">';
+                if ($photo1 != "noimage") {
+                    echo '<img src="img/' . $photo1 . '" class = "smallimg">';
                 }
-                if($photo2!="noimage") {
-                    echo '<img src="img/' . $photo2.'">'; 
+                if ($photo2 != "noimage") {
+                    echo '<img src="img/' . $photo2 . '" class = "smallimg">';
                 }
-                if($photo3!="noimage") {
-                    echo '<img src="img/' . $photo3.'">'; 
+                if ($photo3 != "noimage") {
+                    echo '<img src="img/' . $photo3 . '" class = "smallimg">';
                 }
             }
         }
-    ?>
+        ?>
+    </div>
     <h4>メニューの説明：</h4><?= $menu_detail ?>
 
     <?php
@@ -183,20 +192,114 @@
         echo "src='https://maps.google.com/maps?output=embed&hl=ja&q=<?=$rst_address?>'>";
         echo '</iframe>';
     }
-    echo '<h4>コメント：</h4>';
-    echo '<h5 align = "right">平均：'.$row['ave'].'　コメント数：'.$row['count'].'</h5>';
+    echo '<h4>口コミ：</h4>';
+    echo '<h5 align = "right">平均：' . $row['ave'] . '　コメント数：' . $row['count'] . '</h5>';
 
 
-    /*$sql = "SELECT * FROM `t_review` WHERE `user_id`= $uid AND `rst_id` = $rst_id";
-    $rs = $conn->query($sql);
-      if ($rs) {
-        $row = $rs->fetch_assoc();
-        while ($row) {
-            
-        }
-    }
-    echo 'console.log('.$row['review_comment'].')';
-    */
-    
+
     ?>
+    <?php
+    if (isset($_SESSION['usertype_id']) && $_SESSION['usertype_id'] == 1) {
+        $sql = "SELECT * FROM t_review WHERE user_id= '" . $uid . "' AND rst_id = '" . $rst_id . "';";
+        $rs = $conn->query($sql);
+        $row = $rs->fetch_assoc();
+
+        if ($row != null) {
+            //UPDATE
+            if (isset($_POST['point']) && isset($_POST['comment'])) {
+                $sql = "UPDATE `t_review` SET `eval_point` = " . $_POST['point'] . ", `review_comment` = '" . $_POST['comment'] . "' WHERE `t_review`.`review_id` = " . $row['review_id'] . ";";
+                $rs = $conn->query($sql);
+                if (!$rs) die('エラー: ' . $conn->error);
+            }
+        } else {
+            //INSERT
+            if (isset($_POST['point']) && isset($_POST['comment'])) {
+                $sql = "INSERT INTO `t_review`(`eval_point`, `review_comment`, `rst_id`, `user_id`) VALUES (" . $_POST['point'] . ",'" . $_POST['comment'] . "','" . $rst_id . "','" . $uid . "');";
+                $rs = $conn->query($sql);
+                if (!$rs) die('エラー: ' . $conn->error);
+            }
+        }
+
+        //自分のコメントを表示
+        $sql = "SELECT * FROM t_review WHERE user_id= '" . $uid . "' AND rst_id = '" . $rst_id . "';";
+        $rs = $conn->query($sql);
+        if (!$rs) die('エラー: ' . $conn->error);
+        $row = $rs->fetch_assoc();
+
+        $my_eval_point = 0;
+        $my_review_comment = '';
+
+        if (isset($row['eval_point'])) {
+            $my_eval_point = $row['eval_point'];
+            if (isset($row['review_comment'])) {
+                $my_review_comment = $row['review_comment'];
+            }
+        }
+
+        //自分のコメント
+        echo '<form action="?do=rst_detail&rst_id=' . $rst_id . '" method="post">';
+        echo '<table>';
+        echo '<tr>';
+        echo '<td>';
+        echo '<select id="ispoint" name="point">';
+        for ($num = 0; $num <= 5; $num++) {
+            if ($num == $my_eval_point) {
+                echo '<option selected>' . $num . '</option>';
+            } else {
+                echo '<option>' . $num . '</option>';
+            }
+        }
+        echo '</select>';
+        echo '</td>';
+        echo '</tr>';
+        echo '<tr>';
+        echo '<td>';
+        echo '<textarea id="iscomment" name="comment" cols="110" rows="10" required> ' . $my_review_comment . ' </textarea>';
+        echo '</td>';
+        echo '</tr>';
+        echo '</table>';
+        echo '<div align="right"><input type="submit" value="投稿"></div>';
+        echo '</form>';
+
+
+        //自分以外のコメント表示
+        $sql = "SELECT * FROM t_review WHERE user_id != '" . $uid . "' AND rst_id = $rst_id;";
+        $rs = $conn->query($sql);
+        if (!$rs) die('エラー: ' . $conn->error);
+        $row = $rs->fetch_assoc();
+    } else {
+        //自分以外のコメント表示
+        $sql = "SELECT * FROM t_review WHERE rst_id = $rst_id;";
+        $rs = $conn->query($sql);
+        if (!$rs) die('エラー: ' . $conn->error);
+        $row = $rs->fetch_assoc();
+    }
+    ?>
+    <?php
+    echo '<table border="1" style="border-collapse: collapse" cellpadding="10">';
+    while ($row) {
+        echo '<tr>';
+        echo '<td>' . $row['eval_point'] . '</td>';
+        echo '<td>' . $row['review_comment'] . '</td>';
+
+        if (isset($_SESSION['usertype_id']) &&  $_SESSION['usertype_id'] == 9) {
+            $delete_url = "'?do=review_delete&review_id=".$row['review_id']."&rst_id=".$row['rst_id']."'";
+            echo '<td><button onclick="return deletecorrect(),location.href=' . $delete_url . '">削除</button></td>';
+        }
+        echo '<tr>';
+        $row = $rs->fetch_assoc();
+    }
+
+    ?>
+    <script>
+        function deletecorrect() {
+            /* 確認ダイアログ表示 */
+            var flag = confirm("本当に削除してもよろしいですか？\n\n削除したくない場合は[キャンセル]ボタンを押して下さい");
+            /* send_flg が TRUEなら送信、FALSEなら送信しない */
+            return flag;
+        }
+    </script>
+    </table>
+
+
 </div>

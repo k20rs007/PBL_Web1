@@ -83,12 +83,25 @@ rst_detail====================================================
   width:50em;
 }
 
-.rst_detail img{
+.rst_detail .bigimg{
+  padding-top: 5%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25em;
+  height:auto;
+}
+.imgcontent {
   padding-top: 5%;
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 30em;
+}
+
+.rst_detail .smallimg{
+  width: 10em;
+  height:auto;
 }
 
 .rst_detail iframe{
