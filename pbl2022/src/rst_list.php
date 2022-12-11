@@ -4,37 +4,33 @@
   <div class="searchcondition">
     <div class="search">
       <form action="?do=rst_list" method="post">
-        <input type="search" name="searchname">
+        <input type="search" name="searchname" value="<?php //if(isset($_POST['searchname'])) {echo $_POST['searchname'];}else if(isset($_SESSION['searchname'])) {echo $_SESSION['searchname'];}?>">
         <button type="submit">検索</button>
       </form>
     </div>
     <div class="sortpos">
       <table>
         <form action="?do=rst_list" method="post">
-          <tr>
-            <td>
-              <input type="radio" name="sort" value="(BUDGET_MAX + BUDGET_MIN)/2 DESC">平均金額が高い順
-            </td>
-            <td>
-              <input type="radio" name="sort" value="(BUDGET_MAX + BUDGET_MIN)/2">平均金額が低い順
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input type="radio" name="sort" value="count DESC">評価数が多い順
-            </td>
-            <td>
-              <input type="radio" name="sort" value="count">評価数が少ない順
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input type="radio" name="sort" value="ave DESC">評価平均が高い順
-            </td>
-            <td>
-              <input type="radio" name="sort" value="ave">評価平均が低い順
-            </td>
-          </tr>
+          <?php
+          $sort_sql = [
+            "(BUDGET_MAX + BUDGET_MIN)/2 DESC" => "平均金額が高い順",
+            "(BUDGET_MAX + BUDGET_MIN)/2 " => "平均金額が低い順",
+            "count DESC" => "評価数が高い順",
+            "count" => "評価数が低い順",
+            "ave DESC" => "評価が高い順",
+            "ave" => "評価が低い順"
+          ];
+          $value_count = 0;
+          foreach($sort_sql as $value => $name){
+            if($value_count%2 == 0){echo "<tr>";}
+            echo "<td>";
+            echo '<input type="radio" name="sort" value="'.$value.'"';
+            if(isset($_POST['sort']) && $_POST['sort'] == $value) {echo "checked";}
+            echo ">".$name."<td>";
+            if($value_count%2 == 1){echo "</tr>";}
+            $value_count++;
+          }
+          ?>
       </table>
     </div>
     <div class="filterpos">
@@ -44,34 +40,29 @@
           <td>
             <select name="budgetmin" size="1">
               <option value=null>下限額を入力</option>
-              <option value=0>0</option>
-              <option value=500>500</option>
-              <option value=1000>1000</option>
-              <option value=1500>1500</option>
-              <option value=2000>2000</option>
-              <option value=2500>2500</option>
-              <option value=3000>3000</option>
-              <option value=3500>3500</option>
-              <option value=4000>4000</option>
-              <option value=4500>4500</option>
-              <option value=5000>5000</option>
+              <?php
+              for($i=0; $i<=5000; $i+=500){
+                echo "<option value=".$i." ";
+                if(isset($_POST['budgetmin']) && $_POST['budgetmin'] == $i) {echo " selected";}
+                echo ">".$i."</option>";
+              }
+              ?>
             </select>
           </td>
           <td align=center>～</td>
           <td>
             <select name="budgetmax" size="1">
               <option value=null>上限額を入力</option>
-              <option value=500>500</option>
-              <option value=1000>1000</option>
-              <option value=1500>1500</option>
-              <option value=2000>2000</option>
-              <option value=2500>2500</option>
-              <option value=3000>3000</option>
-              <option value=3500>3500</option>
-              <option value=4000>4000</option>
-              <option value=4500>4500</option>
-              <option value=5000>5000</option>
-              <option value=100000>5000以上</option>
+              <?php
+              for($i=500; $i<=5000; $i+=500){
+                echo "<option value=".$i." ";
+                if(isset($_POST['budgetmax']) && $_POST['budgetmax'] == $i) {echo " selected";}
+                echo ">".$i."</option>";
+              }
+              echo "<option value=1000000000";
+              if(isset($_POST['budgetmax']) && $_POST['budgetmax'] == 1000000000) {echo " selected";}
+              echo ">5000円以上</option>";
+              ?>
             </select>
           </td>
         </tr>
@@ -80,13 +71,26 @@
         <tr>
           <td>開店日(空いている日を選択してください。)</td>
           <?php
-          echo '<td><label><input type="checkbox" id="isopen" name="open[]" value = "sunday = 1">日曜</label></td>';
-          echo '<td><label><input type="checkbox" id="isopen" name="open[]" value = "monday = 1">月曜</label></td>';
-          echo '<td><label><input type="checkbox" id="isopen" name="open[]" value = "tuesday = 1">火曜</label></td>';
-          echo '<td><label><input type="checkbox" id="isopen" name="open[]" value = "wednesday = 1">水曜</label></td>';
-          echo '<td><label><input type="checkbox" id="isopen" name="open[]" value = "thursday = 1">木曜</label></td>';
-          echo '<td><label><input type="checkbox" id="isopen" name="open[]" value = "friday = 1">金曜</label></td>';
-          echo '<td><label><input type="checkbox" id="isopen" name="open[]" value = "saturday = 1">土曜</label></td>';
+          $open_sql = [
+            "sunday = 1" => "日曜",
+            "monday = 1" => "月曜",
+            "tuesday = 1" => "火曜",
+            "wednesday = 1" => "水曜",
+            "thursday = 1" => "木曜",
+            "friday = 1" => "金曜",
+            "saturday = 1" => "土曜"
+          ];
+          foreach($open_sql as $sql_value => $name){
+            echo '<td><label><input type="checkbox" id="isopen" name="open[]" value = "'.$sql_value.'"';
+            if(isset($_POST['open'])){
+              foreach ($_POST['open'] as $value) {
+                if ($sql_value == $value) {
+                  echo 'checked';
+                }
+              }
+            }
+            echo ">".$name."</label></td>";
+          }
           ?>
         </tr>
       </table>
@@ -94,18 +98,31 @@
         <tr>
           <td>ジャンル</td>
           <?php
-          echo '<td><label><input type="checkbox" id="genre_" name="genre[]" value = "japanese_f = 1">和食</label></td>';
-          echo '<td><label><input type="checkbox" id="genre_" name="genre[]" value = "western_f = 1">洋食</label></td>';
-          echo '<td><label><input type="checkbox" id="genre_" name="genre[]" value = "asian_f = 1">アジア</label></td>';
-          echo '<td><label><input type="checkbox" id="genre_" name="genre[]" value = "curry = 1">カレー</label></td>';
-          echo '<td><label><input type="checkbox" id="genre_" name="genre[]" value = "yakiniku = 1">焼肉</label></td>';
-          echo '<td><label><input type="checkbox" id="genre_" name="genre[]" value = "nabe = 1">鍋</label></td>';
-          echo '<td><label><input type="checkbox" id="genre_" name="genre[]" value = "restaurant = 1">レストラン</label></td>';
-          echo '<td><label><input type="checkbox" id="genre_" name="genre[]" value = "noodle = 1">麺類</label></td>';
-          echo '<td><label><input type="checkbox" id="genre_" name="genre[]" value = "cafe = 1">カフェ</label></td>';
-          echo '<td><label><input type="checkbox" id="genre_" name="genre[]" value = "bread = 1">パン</label></td>';
-          echo '<td><label><input type="checkbox" id="genre_" name="genre[]" value = "liquor = 1">お酒</label></td>';
-          echo '<td><label><input type="checkbox" id="genre_" name="genre[]" value = "others = 1">その他</label></td>';
+          $genre_sql = [
+            "japanese_f = 1" => "和食",
+            "western_f = 1" => "洋食",
+            "asian_f = 1" => "アジア",
+            "curry = 1" => "カレー",
+            "yakiniku = 1" => "焼肉",
+            "nabe = 1" => "鍋",
+            "restaurant = 1" => "レストラン",
+            "noodle = 1" => "麺類",
+            "cafe = 1" => "カフェ",
+            "bread = 1" => "パン",
+            "liquor = 1" => "お酒",
+            "others = 1" => "その他",
+          ];
+          foreach($genre_sql as $sql_value => $name){
+            echo '<td><label><input type="checkbox" id="genre_" name="genre[]" value = "'.$sql_value.'"';
+            if(isset($_POST['genre'])){
+              foreach ($_POST['genre'] as $value) {
+                if ($sql_value == $value) {
+                  echo 'checked';
+                }
+              }
+            }
+            echo ">".$name."</label></td>";
+          }
           ?>
         </tr>
         <tr>
