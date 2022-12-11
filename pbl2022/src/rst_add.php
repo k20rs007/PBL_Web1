@@ -126,10 +126,23 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
     if($act=='update') {
       echo '<h2>店舗編集</h2>';
       $value_rst_name='value="'.$rst_name.'"';
-      $value_start_time_weekday='value="'.$start_time_weekday.'"';
-      $value_end_time_weekday='value="'.$end_time_weekday.'"';
-      $value_start_time_holiday='value="'.$end_time_holiday.'"';
-      $value_end_time_holiday='value="'.$end_time_holiday.'"';
+
+      $start_time_weekday_nums = explode(':', $start_time_weekday);
+      $value_start_time_weekday_hour = $start_time_weekday_nums[0];
+      $value_start_time_weekday_min = $start_time_weekday_nums[1];
+
+      $end_time_weekday_nums = explode(':', $end_time_weekday);
+      $value_end_time_weekday_hour = $end_time_weekday_nums[0];
+      $value_end_time_weekday_min = $end_time_weekday_nums[1];
+
+      $start_time_holiday_nums = explode(':', $start_time_holiday);
+      $value_start_time_holiday_hour = $start_time_holiday_nums[0];
+      $value_start_time_holiday_min = $start_time_holiday_nums[1];
+
+      $end_time_holiday_nums = explode(':', $end_time_holiday);
+      $value_end_time_holiday_hour = $end_time_holiday_nums[0];
+      $value_end_time_holiday_min = $end_time_holiday_nums[1];
+
       $telnums = explode('-',$tel_num);
       $value_tel_num1='value="'.$telnums[0].'"';
       $value_tel_num2='value="'.$telnums[1].'"';
@@ -143,10 +156,10 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
       $value_delivery=$delivery;
       $value_delivery_url='value="'.$delivery_url.'"';
       $value_rst_address='value="'.$rst_address.'"';
-      $value_rst_photo = 'img/'.$rst_photo.'"';
-      $value_photo1='img/'.$photo1.'"';
-      $value_photo2='img/'.$photo2.'"';
-      $value_photo3='img/'.$photo3.'"';
+      $value_rst_photo = $rst_photo;
+      $value_photo1= $photo1;
+      $value_photo2= $photo2;
+      $value_photo3= $photo3;
       $value_menu_detail=$menu_detail;
 
       if($japanese_f=='1') {
@@ -367,7 +380,7 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
           if($value_rst_photo=='') {
             $a = 'https://illustimage.com/photo/dl/1706.png?20151101';
           } else {
-            $a = $value_rst_photo;
+            $a = 'img/'.$value_rst_photo;
           }
           echo '<img id="rst_img" accept=".image/*" src="'.$a.'">';
         
@@ -395,7 +408,12 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
             } else {
               $a = "";
             }
-            echo '<option>' . $a . $num . '</option>';
+            $time = $a.$num;
+            if($time==$value_start_time_weekday_hour) {
+              echo '<option selected>'. $time . '</option>';
+            } else {
+              echo '<option>'. $time . '</option>';
+            }
           }
           ?>
         </select>
@@ -409,7 +427,12 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
             } else {
               $a = "";
             }
-              echo '<option>' . $a . $num . '</option>';
+            $time = $a.$num;
+            if($time==$value_start_time_weekday_min) {
+              echo '<option selected>'. $time . '</option>';
+            } else {
+              echo '<option>'. $time . '</option>';
+            }
           }
           ?>
         </select>
@@ -422,7 +445,12 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
             } else {
               $a = "";
             }
-            echo '<option>' . $a . $num . '</option>';
+            $time = $a.$num;
+            if($time==$value_end_time_weekday_hour) {
+              echo '<option selected>'. $time . '</option>';
+            } else {
+              echo '<option>'. $time . '</option>';
+            }
           }
           ?>
         </select>
@@ -436,7 +464,12 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
             } else {
               $a = "";
             }
-            echo '<option>' . $a . $num . '</option>';
+            $time = $a.$num;
+            if($time==$value_end_time_weekday_min) {
+              echo '<option selected>'. $time . '</option>';
+            } else {
+              echo '<option>'. $time . '</option>';
+            }
           }
           ?>
         </select>
@@ -452,7 +485,12 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
             } else {
               $a = "";
             }
-            echo '<option>' . $a . $num . '</option>';
+            $time = $a.$num;
+            if($time==$value_start_time_holiday_hour) {
+              echo '<option selected>'. $time . '</option>';
+            } else {
+              echo '<option>'. $time . '</option>';
+            }
           }
           ?>
         </select>
@@ -466,7 +504,12 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
             } else {
               $a = "";
             }
-            echo '<option>' . $a . $num . '</option>';
+            $time = $a.$num;
+            if($time==$value_start_time_holiday_min) {
+              echo '<option selected>'. $time . '</option>';
+            } else {
+              echo '<option>'. $time . '</option>';
+            }
           }
           ?>
         </select>
@@ -479,7 +522,12 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
             } else {
               $a = "";
             }
-            echo '<option>' . $a . $num . '</option>';
+            $time = $a.$num;
+            if($time==$value_end_time_holiday_hour) {
+              echo '<option selected>'. $time . '</option>';
+            } else {
+              echo '<option>'. $time . '</option>';
+            }
           }
           ?>
         </select>
@@ -493,7 +541,12 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
             } else {
               $a = "";
             }
-            echo '<option>' . $a . $num . '</option>';
+            $time = $a.$num;
+            if($time==$value_end_time_holiday_min) {
+              echo '<option selected>'. $time . '</option>';
+            } else {
+              echo '<option>'. $time . '</option>';
+            }
           }
           ?>
         </select>
@@ -636,10 +689,10 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
       <td>メニュー画像</td>
       <td>
         <?php
-          if($value_photo1==''||$value_photo1=="noimage") {
+          if($value_photo1=="noimage"||$value_photo1=="") {
             $a = 'https://illustimage.com/photo/dl/1706.png?20151101';
           } else {
-            $a = $value_photo1;
+            $a = 'img/'.$value_photo1;
           }
           echo '<img id="photo1_img" accept=".image/*" src="'.$a.'">';
         ?>
@@ -650,10 +703,10 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
       <td></td>
       <td>
         <?php
-          if($value_photo2==''||$value_photo2=="noimage") {
+          if($value_photo2=="noimage"||$value_photo2=="") {
             $a = 'https://illustimage.com/photo/dl/1706.png?20151101';
           } else {
-            $a = $value_photo2;
+            $a = 'img/'.$value_photo2;
           }
           echo '<img id="photo2_img" accept=".image/*" src="'.$a.'">';
         ?>
@@ -664,10 +717,10 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
       <td></td>
       <td>
         <?php
-          if($value_photo3==''||$value_photo3=="noimage") {
+          if($value_photo3=="noimage"||$value_photo3=="") {
             $a = 'https://illustimage.com/photo/dl/1706.png?20151101';
           } else {
-            $a = $value_photo3;
+            $a = 'img/'.$value_photo3;
           }
           echo '<img id="photo3_img" accept=".image/*" src="'.$a.'">';
         ?>
