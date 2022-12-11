@@ -21,11 +21,11 @@
 
     $tel_num = $row['tel_num']; //店舗の電話番号
     $rst_info = $row['rst_info']; //店舗説明
-    // $rst_photo = $row['rst_photo'];//店舗の画像
-    // $rst_photo1 = $row['rst_photo1'];//メニューの画像１
-    // $rst_photo2 = $row['rst_photo2'];//メニューの画像２
-    // $rst_photo3 = $row['rst_photo3'];//メニューの画像３
-    // $uer_id = $row['user_id'];//登録したユーザ
+    $rst_photo = $row['rst_photo'];//店舗の画像
+    $photo1 = $row['photo1'];//メニューの画像１
+    $photo2 = $row['photo2'];//メニューの画像２
+    $photo3 = $row['photo3'];//メニューの画像３
+    //$uer_id = $row['user_id'];//登録したユーザ
     $holiday_detail = $row['holiday_detail']; //休日の備考
     $rst_url = $row['rst_url']; //店舗のホームページ
     $delivery_url = $row['delivery_url']; //デリバリーのホームページ
@@ -84,7 +84,7 @@
         echo '　　　　', 'デリバリー：不可';
     }
     echo '</p>';
-    echo '<img src="img/rst' . $rst_id . '_photo1.jpg" height="280">';
+    echo '<img src="img/' . $rst_photo.'">';
     ?>
     <h4>店舗名：</h4><?= $rst_name ?>
     <?php
@@ -145,6 +145,35 @@
     <h4>デリバリーURL：</h4><?php echo "<a href = '" . $delivery_url . "'>" . $delivery_url . "</a>";  ?>
     <h4>価格帯：</h4><?= $budget_min ?>円～<?= $budget_max ?>円
     <h4>メニュー(写真)：</h4>
+    <?php
+        if($photo1==$photo2) {
+            if($photo2==$photo3) {
+                if($photo1=="noimage") {
+                    echo '写真が登録されていません。';
+                } else {
+                    echo '<img src="img/' . $photo1.'">';
+                }
+            } else {
+                echo '<img src="img/' . $photo1.'">';
+                echo '<img src="img/' . $photo3.'">';
+            }
+        } else {
+            if($photo2==$photo3||$photo1==$photo3) {
+                echo '<img src="img/' . $photo1.'">';
+                echo '<img src="img/' . $photo2.'">';
+            } else {
+                if($photo1!="noimage") {
+                    echo '<img src="img/' . $photo1.'">';
+                }
+                if($photo2!="noimage") {
+                    echo '<img src="img/' . $photo2.'">'; 
+                }
+                if($photo3!="noimage") {
+                    echo '<img src="img/' . $photo3.'">'; 
+                }
+            }
+        }
+    ?>
     <h4>メニューの説明：</h4><?= $menu_detail ?>
 
     <?php

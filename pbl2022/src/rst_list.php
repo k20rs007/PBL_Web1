@@ -247,7 +247,7 @@
     while ($row) {
       echo '<div class = "item">';
       echo '<a href="?do=rst_detail&rst_id=' . $row['rst_id'] . '">';
-      echo '<img src="img/rst1_photo1.jpg">';
+      echo '<img src="img/'.$row['rst_photo'].'">';
       echo '</a>';
       if ($row['takeout'] == 1) {
         echo '<br>', 'テイクアウト：可能';

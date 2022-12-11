@@ -155,16 +155,22 @@ if (isset($_POST['act'])){
       $photo1 = $_FILES['photo1']['name'];
       move_uploaded_file($_FILES['photo1']['tmp_name'], './img/' . $rst_id ."_1".$photo1);
       $photo1 = $rst_id ."_1".$photo1;
+    } else {
+      $photo1 = "noimage";
     }
     if (!empty($_FILES['photo2']['name'])) {
       $photo2 = $_FILES['photo2']['name'];
       move_uploaded_file($_FILES['photo2']['tmp_name'], './img/' . $rst_id ."_2".$photo2);
       $photo2 = $rst_id ."_2".$photo2;
+    } else {
+      $photo2 = "noimage";
     }
     if (!empty($_FILES['photo3']['name'])) {
       $photo3 = $_FILES['photo3']['name'];
       move_uploaded_file($_FILES['photo3']['tmp_name'], './img/' . $rst_id ."_3".$photo3);
       $photo3 = $rst_id ."_3".$photo3;
+    } else {
+      $photo3 = "noimage";
     }
 
     $menu_detail = $_POST['menu_detail'];
