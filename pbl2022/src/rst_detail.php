@@ -157,33 +157,23 @@
     <h4>メニュー(写真)：</h4>
     <div class="imgcontent">
         <?php
-        if ($photo1 == $photo2) {
-            if ($photo2 == $photo3) {
-                if ($photo1 == "noimage") {
-                    echo '写真が登録されていません。';
-                } else {
-                    echo '<img src="img/' . $photo1 . '" class = "smallimg">';
+            if($photo1==$photo2) {
+                if($photo2==$photo3) {
+                    if($photo1=="noimage") {
+                        echo '写真が登録されていません。';
+                    }
+                } 
+            }else {
+                if($photo1!="noimage") {
+                    echo '<img src="img/' . $photo1.'" class = "smallimg">';
                 }
-            } else {
-                echo '<img src="img/' . $photo1 . '" class = "smallimg">';
-                echo '<img src="img/' . $photo3 . '" class = "smallimg">';
-            }
-        } else {
-            if ($photo2 == $photo3 || $photo1 == $photo3) {
-                echo '<img src="img/' . $photo1 . '" class = "smallimg">';
-                echo '<img src="img/' . $photo2 . '" class = "smallimg">';
-            } else {
-                if ($photo1 != "noimage") {
-                    echo '<img src="img/' . $photo1 . '" class = "smallimg">';
+                if($photo2!="noimage") {
+                    echo '<img src="img/' . $photo2.'" class = "smallimg">'; 
                 }
-                if ($photo2 != "noimage") {
-                    echo '<img src="img/' . $photo2 . '" class = "smallimg">';
-                }
-                if ($photo3 != "noimage") {
-                    echo '<img src="img/' . $photo3 . '" class = "smallimg">';
+                if($photo3!="noimage") {
+                    echo '<img src="img/' . $photo3.'" class = "smallimg">'; 
                 }
             }
-        }
         ?>
     </div>
     <h4>メニューの説明：</h4><?= $menu_detail ?>
