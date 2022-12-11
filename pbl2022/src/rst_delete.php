@@ -7,7 +7,7 @@
     echo $sql;
     $conn->query($sql);
     echo '<h2>削除しました。</h2>';
-    //header('Location:?do=rst_list');
+    header('Location:?do=rst_list');
     }else{
     echo '<h2>削除する店舗IDは与えられていません</h2>';
     echo '<a href="?do=rst_list">戻る</a>';
