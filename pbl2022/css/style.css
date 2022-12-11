@@ -146,7 +146,7 @@ rst_add====================================================
 */
 
 .rst_add {
-  padding-top: 10rem;
+  padding-top: 5rem;
   display: block;
   margin-right: auto;
   width:23em;
@@ -162,6 +162,9 @@ rst_add====================================================
   width:100px;
 }
 
+img{
+  height:180px
+}
 
 /*
 usr_save====================================================
