@@ -159,25 +159,20 @@
         <?php
         if ($photo1 == $photo2) {
             if ($photo2 == $photo3) {
-                if ($photo1 == "noimage") {
+                if ($photo1 == "noimage" || $photo1 == "") {
                     echo '写真が登録されていません。';
-                } else {
-                    echo '<img src="img/' . $photo1 . '" class = "smallimg">';
                 }
-            } else {
-                echo '<img src="img/' . $photo1 . '" class = "smallimg">';
-                echo '<img src="img/' . $photo3 . '" class = "smallimg">';
             }
         } else {
-                if ($photo1 != "noimage") {
-                    echo '<img src="img/' . $photo1 . '" class = "smallimg">';
-                }
-                if ($photo2 != "noimage") {
-                    echo '<img src="img/' . $photo2 . '" class = "smallimg">';
-                }
-                if ($photo3 != "noimage") {
-                    echo '<img src="img/' . $photo3 . '" class = "smallimg">';
-                }
+            if ($photo1 != "noimage") {
+                echo '<img src="img/' . $photo1 . '" class = "smallimg">';
+            }
+            if ($photo2 != "noimage") {
+                echo '<img src="img/' . $photo2 . '" class = "smallimg">';
+            }
+            if ($photo3 != "noimage") {
+                echo '<img src="img/' . $photo3 . '" class = "smallimg">';
+            }
         }
         ?>
     </div>
