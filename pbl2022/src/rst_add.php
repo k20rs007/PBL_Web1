@@ -368,13 +368,13 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
   
   <table>
     <tr>
-      <td>店舗名</td>
+      <td><span class = "txtred">*</span>店舗名</td>
       <td>
         <?php echo '<input type="text" name="rst_name" '.$value_rst_name.' required>';?>
       </td>
     </tr>
     <tr>
-      <td>店舗画像</td>
+      <td><span class = "txtred">*</span>店舗画像</td>
       <td>
         <?php
           if($value_rst_photo=='') {
@@ -393,13 +393,13 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
       </td>
     </tr>
     <tr>
-      <td>店舗説明</td>
+      <td><span class = "txtred">*</span>店舗説明</td>
       <td>
         <?php echo '<textarea name="rst_info" required cols="70" rows="10">'.$value_rst_info.'</textarea>';?>
       </td>
     </tr>
     <tr>
-      <td>時間(平日)</td>
+      <td><span class = "txtred">*</span>時間(平日)</td>
       <td><select name="start_time_weekday_hour" required>
           <?php
           for ($num = 0; $num <= 24; $num++) {
@@ -476,7 +476,7 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
       </td>
     </tr>
     <tr>
-      <td>時間(休日)
+      <td><span class = "txtred">*</span>時間(休日)
       <td><select name="start_time_holiday_hour" required>
           <?php
           for ($num = 0; $num <= 24; $num++) {
@@ -553,7 +553,7 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
       </td>
     </tr>
     <tr>
-      <td>電話番号</td>
+      <td><span class = "txtred">*</span>電話番号</td>
       <td>
         <?php echo '<input type="text" name="tel_num_1" '.$value_tel_num1.' required size = 6px>';?>
       —
@@ -562,7 +562,7 @@ if (isset($_GET['rst_id'])) { //既存アカウントを編集する場合
         <?php echo '<input type="text" name="tel_num_3" '.$value_tel_num3.' required size = 6px>';?>
     </tr>
     <tr>
-      <td>値段目安</td>
+      <td><span class = "txtred">*</span>値段目安</td>
       <td>
         <?php echo '<input type="text" name="budget_min" '.$value_budget_min.' required size = 6px>';?>
       ～

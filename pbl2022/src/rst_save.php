@@ -282,7 +282,7 @@ if (isset($_POST['act'])){
       start_time_weekday='{$start_time_weekday}', end_time_weekday='{$end_time_weekday}', 
       start_time_holiday='{$start_time_holiday}', end_time_holiday='{$end_time_holiday}',
       tel_num='{$tel_num}', rst_info='{$rst_info}', rst_photo='{$rst_photo}',
-      photo1='{$photo1}', photo2='{$photo2}', photo3='{$photo3}', user_id='{$user_id}',
+      photo1='{$photo1}', photo2='{$photo2}', photo3='{$photo3}',
       takeout='{$takeout}', delivery='{$delivery}', holiday_detail='{$holiday_detail}', rst_url='{$rst_url}',
       menu_detail='{$menu_detail}', budget_min='{$budget_min}', budget_max='{$budget_max}',
       delivery_url='{$delivery_url}' WHERE rst_id='{$rst_id}'";
@@ -312,7 +312,7 @@ if (isset($_POST['act'])){
       saturday='{$saturday}',sunday='{$sunday}' WHERE rst_id='{$rst_id}'";
     }
     $conn->query($sql);
-
+    header("Location:?do=rst_list");
     echo '<h3>店舗が追加されました</h3>';
     //echo $act;
 }

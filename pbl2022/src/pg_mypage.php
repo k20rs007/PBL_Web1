@@ -30,8 +30,8 @@
       define('MAX_ROWS', 9); //MAX_ROWS: 1ページに表示する最大行数
 
       $sql = "SELECT *, (SELECT COUNT(*) FROM t_review WHERE t_rstinfo.rst_id = t_review.rst_id) as count,
-          (SELECT ROUND(AVG(eval_point),1) FROM t_review WHERE t_rstinfo.rst_id = t_review.rst_id) as ave 
-          FROM t_rstinfo JOIN t_open ON t_rstinfo.rst_id = t_open.rst_id JOIN t_genre ON t_rstinfo.rst_id = t_genre.rst_id WHERE user_id = '{$uid}'";
+      (SELECT ROUND(AVG(eval_point),1) FROM t_review WHERE t_rstinfo.rst_id = t_review.rst_id) as ave 
+      FROM t_rstinfo JOIN t_open ON t_rstinfo.rst_id = t_open.rst_id JOIN t_genre ON t_rstinfo.rst_id = t_genre.rst_id JOIN t_user ON t_rstinfo.user_id = t_user.user_id WHERE t_rstinfo.user_id = '{$uid}'";
 
       $rs = $conn->query($sql);
       $num_rows = mysqli_num_rows($rs);
@@ -56,7 +56,7 @@
         while ($row) {
           echo '<div class = "item">';
           echo '<a href="?do=rst_detail&rst_id=' . $row['rst_id'] . '">';
-          echo '<img src="img/'.$row['rst_photo'].'">';
+          echo '<img src="img/' . $row['rst_photo'] . '">';
           echo '</a>';
           if ($row['takeout'] == 1) {
             echo '<br>', 'テイクアウト：可能';
@@ -71,8 +71,82 @@
           echo '<br>', '店舗名：' . $row['rst_name'];
           echo '<br>', '評価数：' . $row['count'];
           echo '<br>', '評価平均：' . $row['ave'];
-          echo '<br>', 'ジャンル：' . $row['genre'];
+          $japanese_f = $row['japanese_f']; //和食の可=1/否=0
+          $western_f = $row['western_f']; //洋食の可=1/否=0
+          $asian_f = $row['asian_f']; //アジアの可=1/否=0
+          $curry = $row['curry']; //カレーの可=1/否=0
+          $yakiniku = $row['yakiniku']; //焼肉の可=1/否=0
+          $nabe = $row['nabe']; //鍋の可=1/否=0
+          $restaurant = $row['restaurant']; //レストランの可=1/否=0
+          $noodle = $row['noodle']; //麺類の可=1/否=0
+          $cafe = $row['cafe']; //カフェの可=1/否=0
+          $bread = $row['bread']; //パンの可=1/否=0
+          $liquor = $row['liquor']; //お酒の可=1/否=0
+          $others = $row['others']; //そのほかの可=1/否=0
+          $rst_genre = "";
+          if ($japanese_f == 1) {
+            $rst_genre = $rst_genre . "日本食 ";
+          }
+          if ($western_f == 1) {
+            $rst_genre = $rst_genre . "洋食 ";
+          }
+          if ($asian_f == 1) {
+            $rst_genre = $rst_genre . "アジア ";
+          }
+          if ($curry == 1) {
+            $rst_genre = $rst_genre . "カレー ";
+          }
+          if ($yakiniku == 1) {
+            $rst_genre = $rst_genre . "焼肉 ";
+          }
+          if ($nabe == 1) {
+            $rst_genre = $rst_genre . "鍋 ";
+          }
+          if ($restaurant == 1) {
+            $rst_genre = $rst_genre . "レストラン ";
+          }
+          if ($noodle == 1) {
+            $rst_genre = $rst_genre . "麺類 ";
+          }
+          if ($cafe == 1) {
+            $rst_genre = $rst_genre . "カフェ ";
+          }
+          if ($bread == 1) {
+            $rst_genre = $rst_genre . "パン ";
+          }
+          if ($liquor == 1) {
+            $rst_genre = $rst_genre . "お酒 ";
+          }
+          if ($others == 1) {
+            $rst_genre = $rst_genre . "その他 ";
+          }
+          echo '<br>', 'ジャンル：' . $rst_genre;
           echo '<br>', '平均予算：' . ($row['budget_max'] + $row['budget_min']) / 2 . '円';
+          //開店日文字列
+          $rst_close = "";
+          if ($row['sunday'] == 1) {
+            $rst_close = $rst_close . "日 ";
+          }
+          if ($row['monday'] == 1) {
+            $rst_close = $rst_close . "月 ";
+          }
+          if ($row['tuesday'] == 1) {
+            $rst_close = $rst_close . "火 ";
+          }
+          if ($row['wednesday'] == 1) {
+            $rst_close = $rst_close . "水 ";
+          }
+          if ($row['thursday'] == 1) {
+            $rst_close = $rst_close . "木 ";
+          }
+          if ($row['friday'] == 1) {
+            $rst_close = $rst_close . "金 ";
+          }
+          if ($row['saturday'] == 1) {
+            $rst_close = $rst_close . "土 ";
+          }
+          echo '<br>', '開店日：' . $rst_close;
+          echo '<br>', '最終投稿者：' . $row['user_kana'];
           echo '</div>';
           $row = $rs->fetch_assoc(); //次の行へ
         }

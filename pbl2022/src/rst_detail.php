@@ -47,10 +47,10 @@
     $bread = $row['bread'];//パンの可=1/否=0
     $liquor = $row['liquor'];//お酒の可=1/否=0
     $others = $row['others'];//そのほかの可=1/否=0
-    if(isset($_SESSION['usertype_id']) && $uid==$user_id) {
+    if(isset($_SESSION['usertype_id']) && ($_SESSION['usertype_id']=='9' || $uid==$user_id)) {
         echo '<a href="?do=rst_add&rst_id='.$rst_id.'">編集</a>';
     }
-    if(isset($_SESSION['usertype_id']) && $_SESSION['usertype_id']=='9') {
+    if(isset($_SESSION['usertype_id']) && ($_SESSION['usertype_id']=='9' || $uid==$user_id)) {
         $delete_url = "'?do=rst_delete&rst_id=".$rst_id."'";
         echo "<td><form method='post' action='?do=rst_delete&rst_id=".$rst_id."'' onsubmit='return deletecorrect()'>";
         echo '<input type="submit" value="削除" name="delete" />';
@@ -231,11 +231,13 @@
         if (!$rs) die('エラー: ' . $conn->error);
         $row = $rs->fetch_assoc();
 
+        $my_review_id = 0;
         $my_eval_point = 0;
         $my_review_comment = '';
 
         if (isset($row['eval_point'])) {
             $my_eval_point = $row['eval_point'];
+            $my_review_id = $row['review_id'];
             if (isset($row['review_comment'])) {
                 $my_review_comment = $row['review_comment'];
             }
@@ -263,7 +265,10 @@
         echo '</td>';
         echo '</tr>';
         echo '</table>';
-        echo '<div align="right"><input type="submit" value="投稿"></div>';
+        echo '<div align="right"><input type="submit" value="投稿">';
+        echo '</form>';
+        echo "<form method='post' action='?do=review_delete&review_id=".$my_review_id."&rst_id=".$rst_id."' onsubmit='return deletecorrect()'>";
+        echo '<input type="submit" value="削除" name="delete" /></div>';
         echo '</form>';
 
 
