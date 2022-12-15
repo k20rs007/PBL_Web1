@@ -16,8 +16,8 @@
           $sort_sql = [
             "(BUDGET_MAX + BUDGET_MIN)/2 DESC" => "平均金額が高い順",
             "(BUDGET_MAX + BUDGET_MIN)/2 " => "平均金額が低い順",
-            "count DESC" => "評価数が高い順",
-            "count" => "評価数が低い順",
+            "count DESC" => "評価数が多い順",
+            "count" => "評価数が少ない順",
             "ave DESC" => "評価が高い順",
             "ave" => "評価が低い順"
           ];
@@ -199,7 +199,7 @@
             $sql = $sql . $value;
             $daycount = 1;
           } else {
-            $sql = $sql . " AND " . $value;
+            $sql = $sql . " OR " . $value;
           }
         }
       }
