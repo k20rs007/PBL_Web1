@@ -186,7 +186,7 @@
       if (isset($_POST['budgetmax']) && isset($_POST['budgetmin'])) {
         if ($_POST['budgetmax'] != "null" && $_POST['budgetmin'] != "null") {
           $budgetcount = 1;
-          $sql = $sql . "(" . $_POST['budgetmax'] . ">= t_rstinfo.budget_max AND t_rstinfo.budget_min >= " . $_POST['budgetmin'] . ")";
+          $sql = $sql . "(" . $_POST['budgetmax'] . ">= (t_rstinfo.budget_max +  t_rstinfo.budget_min)/2 AND (t_rstinfo.budget_max +  t_rstinfo.budget_min)/2 >= " . $_POST['budgetmin'] . ")";
         } else if (isset($_POST['budgetmax'])) {
         }
       }
