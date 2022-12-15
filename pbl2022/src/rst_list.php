@@ -198,8 +198,10 @@
           if ($daycount == 0 && $budgetcount == 0) {
             $sql = $sql . $value;
             $daycount = 1;
-          } else {
+          } else if ($daycount == 1) {
             $sql = $sql . " OR " . $value;
+          } else if ($budgetcount == 1) {
+            $sql = $sql . " AND " . $value;
           }
         }
       }
@@ -227,7 +229,6 @@
       FROM t_rstinfo JOIN t_open ON t_rstinfo.rst_id = t_open.rst_id JOIN t_genre ON t_rstinfo.rst_id = t_genre.rst_id JOIN t_user ON t_rstinfo.user_id = t_user.user_id WHERE t_rstinfo.rst_name LIKE '%" . $_POST['searchname'] . "%' ORDER BY t_rstinfo.rst_id";
     }
   }
-
 
 
 
@@ -276,18 +277,18 @@
       echo '<br>', '評価数：' . $row['count'];
       echo '<br>', '評価平均：' . $row['ave'];
 
-      $japanese_f = $row['japanese_f'];//和食の可=1/否=0
-      $western_f = $row['western_f'];//洋食の可=1/否=0
-      $asian_f = $row['asian_f'];//アジアの可=1/否=0
-      $curry = $row['curry'];//カレーの可=1/否=0
-      $yakiniku = $row['yakiniku'];//焼肉の可=1/否=0
-      $nabe = $row['nabe'];//鍋の可=1/否=0
-      $restaurant = $row['restaurant'];//レストランの可=1/否=0
-      $noodle = $row['noodle'];//麺類の可=1/否=0
-      $cafe = $row['cafe'];//カフェの可=1/否=0
-      $bread = $row['bread'];//パンの可=1/否=0
-      $liquor = $row['liquor'];//お酒の可=1/否=0
-      $others = $row['others'];//そのほかの可=1/否=0
+      $japanese_f = $row['japanese_f']; //和食の可=1/否=0
+      $western_f = $row['western_f']; //洋食の可=1/否=0
+      $asian_f = $row['asian_f']; //アジアの可=1/否=0
+      $curry = $row['curry']; //カレーの可=1/否=0
+      $yakiniku = $row['yakiniku']; //焼肉の可=1/否=0
+      $nabe = $row['nabe']; //鍋の可=1/否=0
+      $restaurant = $row['restaurant']; //レストランの可=1/否=0
+      $noodle = $row['noodle']; //麺類の可=1/否=0
+      $cafe = $row['cafe']; //カフェの可=1/否=0
+      $bread = $row['bread']; //パンの可=1/否=0
+      $liquor = $row['liquor']; //お酒の可=1/否=0
+      $others = $row['others']; //そのほかの可=1/否=0
       $rst_genre = "";
       if ($japanese_f == 1) {
         $rst_genre = $rst_genre . "日本食 ";
