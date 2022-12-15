@@ -182,7 +182,7 @@
     if ($rst_address != null) {
         //マップ
         echo '<iframe width="80%" height="350pt" frameborder="0" scrolling="no"';
-        echo "src='https://maps.google.com/maps?output=embed&hl=ja&q=<?=$rst_address?>'>";
+        echo "src='https://maps.google.com/maps?output=embed&hl=ja&q=".$rst_address."'>";
         echo '</iframe>';
     }
     echo '<table>';
