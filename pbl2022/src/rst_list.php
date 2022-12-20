@@ -354,7 +354,7 @@
         $rst_close = $rst_close . "土 ";
       }
       echo '<br>', '開店日：' . $rst_close;
-      echo '<br>', '最終投稿者：' . $row['user_kana'];
+      echo '<br>', '投稿者：' . $row['user_kana'];
       echo '</div>';
       $row = $rs->fetch_assoc(); //次の行へ
     }
